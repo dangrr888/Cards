@@ -1,0 +1,67 @@
+# * Phase 1: Resolve ambiguity
+#
+# *** suites
+# *** denominations. We assume that each suit has the same denominations.
+#
+# * Phase 2: Define the core classes
+# 
+# ** Card - a class
+# ** Deck - a class
+# ** Suit - an enum
+# ** Denomination - an enum
+#
+# * Phase 3: Define the relationships between the core classes (use UML)
+#
+# ** Card should have a Suit and a Denomination
+# ** A Deck should own cards, but each card should not know its deck to avoid circular references.
+#
+# * Phase 4: Class responsibilities
+#
+# ** Suit
+# *** This is an enum, hence has no interface.
+#
+# ** Denomination
+# *** This is an enum, hence has no interface.
+#
+# * Card
+# ** Has a constructor that takes Suit and Denomination
+# ** The Suit and Denomination of a Card are const
+# ** Has getter for Suit (hence this enum must be public)
+# ** Has getter for Denomination (hence this enum must be public)
+# ** Has inserter to pretty print its data
+#
+# * Deck
+# ** Has an id (boost string type) since some games require >1 deck.
+# ** Has constructor that takes an id
+# ** Has initialise private method called by constructor to create and store the ((${#suits[*]}*${#denomination[*]})) cards it owns
+# ** Has a container that stores its cards. One should not need to copy the deck, store the container directly.
+# ** Delete the copy semantics of the class, a deck need not be moved nor copied.
+# ** The remaining interface is dependent on the game, but there are basics that are required.
+# ** Shuffle/Get a random card would be better. Allow a specified number of random cards to be acquired.
+# **  Card management. Will need to know if a given card has been dealt or not. Could start to inundate the Card to have flags, but best
+# **+ left to derived classes. The container should remain private and accessible only through the GetCard(s) interface functions.
+# ** Convenience method to get total number of cards.
+#
+# Phase 5: Implementation ideas
+#
+# * Deck:
+# *  Make Deck a template class parameterised by Suit and Denomination enum's. Specific games
+# *+ requiring decks with specific traits can then static assert traits of those enums.
+# *  Could make Deck statically assert that we have a standard deck in primary template definition then create a specialization of
+# *+ a deck which doesn't impose those restrictions for specific suites+denomination combinations. Might be a step too far since
+# *+ the flexibility of a denomination and suite shouldn't be restricted so heavily in this way. Could just define a specialisation for
+# *+ standard deck and alias it for convenience.
+#
+#
+# Phase 6: Testing
+#
+# * Use google test to write unit tests for Card :
+# * Assert no throw on construction of TestCard using TestSuit and TestDenomination.
+# * AssertEq value of Suite and denomination of constructed TestCard
+#
+# * Use google test to write unit tests for Deck :
+# * Assert no throw creation of a deck with given TestSuites and TestDenomination.
+# * assert size of deck
+# * check no throw card with a random seed
+#
+

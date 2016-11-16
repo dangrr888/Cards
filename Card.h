@@ -19,7 +19,6 @@ namespace basic
                  , "suit and denomenation of this Card must be enum's."
                    );
 
-
     // public constructors    
   public:
     

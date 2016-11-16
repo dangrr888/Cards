@@ -8,6 +8,7 @@
 #include <type_traits>
 #include <ctime>
 #include <iterator>
+#include <stdexcept>
 // Boost
 #include "boost/serialization/strong_typedef.hpp"
 #include "boost/random.hpp"
@@ -88,7 +89,7 @@ namespace basic
     /// @return A random un-dealt Card of this Deck.
     /// @pre The number of undealt cards must be greater than zero
     ///  otherwise this function will throw an exception.
-    Card& get_card() const;
+    Card& deal_card();
     
     /// @brief Get number of Cards in this Deck.
     /// @return The number of Cards in this Deck.
@@ -98,12 +99,16 @@ namespace basic
     /// @return the id of this Deck.
     Id id() const noexcept;
 
-    // private member functions
-  private:
-
     /// @brief Get number of un-dealt Cards in this Deck.
     /// @return The number of un-dealt Cards in this Deck.
     typename std::list<Card>::size_type num_undealt_cards() const noexcept;
+
+    /// @brief Get number of dealt Cards in this Deck.
+    /// @return The number of dealt Cards in this Deck.
+    typename std::list<Card>::size_type num_dealt_cards() const noexcept;
+
+    // private member functions
+  private:
     
     // private data members
   private:
@@ -138,17 +143,18 @@ namespace basic
   }
   
   template<typename Card>
-  Card& Deck<Card>::get_card() const
+  Card& Deck<Card>::deal_card()
   {
     const typename std::list<Card>::size_type n {num_undealt_cards()};
     if (n == 0)
     {
+      /// @todo Use boost error to get better error messages.
       throw std::logic_error("All cards have been dealt!");
     }
     
     const std::time_t now = std::time(0);
-    const boost::random::mt19937 gen{static_cast<std::uint32_t>(now)};
-    const boost::random::uniform_int_distribution<> dist{0, n-1};
+    boost::random::mt19937 gen{static_cast<std::uint32_t>(now)};
+    boost::random::uniform_int_distribution<> dist{0, static_cast<int>(n-1)};
     auto distance {dist(gen)};
 
     auto iter {m_undealt_cards.cbegin()};
@@ -177,6 +183,12 @@ namespace basic
   typename std::list<Card>::size_type Deck<Card>::num_undealt_cards() const noexcept
   {
     return m_undealt_cards.size();
+  }
+
+  template<typename Card>
+  typename std::list<Card>::size_type Deck<Card>::num_dealt_cards() const noexcept
+  {
+    return m_dealt_cards.size();
   }
  
 } // ! namespace basic

@@ -54,7 +54,7 @@ std::ostream& operator<<(std::ostream& os, const example::SUIT& suit)
 std::ostream& operator<<(std::ostream& os, const example::DENOMENATION& denom)
 {
   switch (denom)
-  {
+    {
   case example::DENOMENATION::ACE:
     std::cout << "ACE";
     break;
@@ -144,8 +144,19 @@ int main(int argc, char* argv[])
                                                                                 , denoms.cend()
                                                                                 , basic::Deck<basic::Card<example::SUIT, example::DENOMENATION>>::Id{1}
                                                                                 );
-                                                                                
-  std::cout << standard_deck.num_cards() << std::endl;
-                                                                                
+
+  std::cout << "number of undealt cards: " << standard_deck.num_undealt_cards()
+            << ", number dealt cards: " << standard_deck.num_dealt_cards()
+            << std::endl;
+
+  auto& dealt_card = standard_deck.deal_card();
+  std::cout << "Dealt card suit: " << dealt_card.suit()
+            << ", Dealt card denomenation: " << dealt_card.denomenation()
+            << std::endl;
+
+  std::cout << "number of undealt cards: " << standard_deck.num_undealt_cards()
+            << ", number dealt cards: " << standard_deck.num_dealt_cards()
+            << std::endl;
+
   return EXIT_SUCCESS;
 }

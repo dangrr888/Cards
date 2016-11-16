@@ -1,5 +1,3 @@
 #! /bin/bash
 
-g++ -o main *.cpp --std=c++11
-
-exit $?
+g++ -o main *.cpp --std=c++11 -I/usr/local/boost_installed/include

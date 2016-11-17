@@ -190,6 +190,15 @@ namespace basic
   {
     return m_dealt_cards.size();
   }
+
+  /*
+  template<typename SUIT, typename STANDARD>
+  std::ostream& operator<<(std::ostream& os, const Card<SUIT, STANDARD>& card)
+  {
+    os << "Card: SUIT: " << card.suit() << ", DENOM: " << card.denomenation();
+    return os;
+  }
+  */
  
 } // ! namespace basic
 

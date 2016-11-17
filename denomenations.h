@@ -18,7 +18,8 @@ enum class STANDARD
   TEN,
   JACK,
   QUEEN,
-  KING
+  KING,
+  JOKER  
 }; // ! enumeration STANDARD
 
 /// @todo - rewrite this in terms of constexpr functions.
@@ -27,44 +28,47 @@ std::ostream& operator<<( std::ostream& os
 {
   switch (denom)
   {
-  case example::DENOMENATION::ACE:
+  case STANDARD::ACE:
     std::cout << "ACE";
     break;
-  case example::DENOMENATION::TWO:
+  case STANDARD::TWO:
     std::cout << "TWO";
     break;
-  case example::DENOMENATION::THREE:
+  case STANDARD::THREE:
     std::cout << "THREE";
     break;
-  case example::DENOMENATION::FOUR:
+  case STANDARD::FOUR:
     std::cout << "FOUR";
     break;
-  case example::DENOMENATION::FIVE:
+  case STANDARD::FIVE:
     std::cout << "FIVE";
     break;
-  case example::DENOMENATION::SIX:
+  case STANDARD::SIX:
     std::cout << "SIX";
     break;
-  case example::DENOMENATION::SEVEN:
+  case STANDARD::SEVEN:
     std::cout << "SEVEN";
     break;
-  case example::DENOMENATION::EIGHT:
+  case STANDARD::EIGHT:
     std::cout << "EIGHT";
     break;
-  case example::DENOMENATION::NINE:
+  case STANDARD::NINE:
     std::cout << "NINE";
     break;
-  case example::DENOMENATION::TEN:
+  case STANDARD::TEN:
     std::cout << "TEN";
     break;
-  case example::DENOMENATION::JACK:
+  case STANDARD::JACK:
     std::cout << "JACK";
     break;
-  case example::DENOMENATION::QUEEN:
+  case STANDARD::QUEEN:
     std::cout << "QUEEN";
     break;
-  case example::DENOMENATION::KING:
+  case STANDARD::KING:
     std::cout << "KING";
+    break;
+  case STANDARD::JOKER:
+    std::cout << "JOKER";
     break;
   default:
     break;

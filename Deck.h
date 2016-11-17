@@ -46,7 +46,7 @@ namespace basic
     // public structors
   public:
     
-    /// @brief 5-parameter constructor
+    /// @brief 5-parameter constructor.
     /// @param first_suit Iterator to first suit of this Deck.
     /// @param last_suit Iterator to last suit of this Deck.
     /// @param first_denom Iterator to first denomenation of this Deck.
@@ -55,12 +55,27 @@ namespace basic
     /// @note Client is responsible for providing the Deck Id and to check
     ///  for uniqueness.
     template<typename SuitIter, typename DenomIter>
-    Deck( SuitIter first_suit
-        , SuitIter last_suit
-        , DenomIter first_denom
-        , DenomIter last_denom
-        , Id id
-        );
+    explicit Deck( SuitIter first_suit
+		, SuitIter last_suit
+		, DenomIter first_denom
+		, DenomIter last_denom
+		, Id id
+		);
+
+#if 0
+    /// @brief 3-parameter constructor.
+    /// @param first_card iterator to the first card of this Deck.
+    /// @param first_card iterator to the last card of this Deck.
+    /// @param id Id of this Deck.
+    /// @note Client is responsible for providing the Deck Id and to check
+    ///  for uniqueness.
+    /// @attention NOT YET IMPLEMENTED.
+    template<typename CardIter iter>
+    explicit Deck( CardIter first_card
+		 , CardIter last_card
+		 , Id id
+		 );
+#endif
     
     /// @brief Copy constructor.
     /// @attention DELETED
@@ -83,6 +98,13 @@ namespace basic
     
     /// public member functions
   public:
+
+#if 0
+    /// Add a Card to this Deck.
+    /// @param card Card to be added.
+    /// @attention NOT YET IMPLEMENTED.
+    void add_card(const Card& card);
+#endif    
 
     /// @brief Get a random un-dealt Card of this Deck.
     /// @detail Dealing a Card renders it dealt.

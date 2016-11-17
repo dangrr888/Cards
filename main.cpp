@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
   /// @todo - why am i doing this? More and more reasons to make these enums classes.
   ///  since most of the time the user will want to add all the permutations.
   const std::list<suit> suits {suit::HEARTS, suit::DIAMONDS, suit::SPADES, suit::CLUBS};
-  const std::list<denomenations::STANDARD> denoms
+  const std::list<denom> denoms
   {
     denom::ACE,
     denom::TWO,
@@ -43,6 +43,8 @@ int main(int argc, char* argv[])
     denom::QUEEN,
     denom::KING
   };
+
+  /// @todo - add 3-parameter Deck constructor and Deck::add_card so that we can add Jokers.
 
   // Create a Deck
   basic::Deck<card> standard_deck( suits.cbegin()

@@ -17,12 +17,7 @@ int main(int argc, char* argv[])
 
   const card ace_of_spades(suit::HEARTS, denom::ACE);
 
-  /// @todo - replace this with an inserter for a card.
-  ///  \code{.cpp}
-  ///  std::cout << "ace_of_spaces: " << ace_of_spades << std::endl;
-  ///  \endcode
-  std::cout << "suit: " << ace_of_spades.suit() << std::endl;
-  std::cout << "denom: " << ace_of_spades.denomenation() << std::endl;
+  std::cout << "ace_of_spaces:\n" << ace_of_spades << std::endl;
 
   /// @todo - why am i doing this? More and more reasons to make these enums classes.
   ///  since most of the time the user will want to add all the permutations.
@@ -53,6 +48,10 @@ int main(int argc, char* argv[])
 				 , denoms.cend()
 				 , deck::Id{1}
 				 );
+
+  std::cout << "standard deck:\n"
+            << standard_deck
+            << std::endl;
 
   std::cout << "number of undealt cards: " << standard_deck.num_undealt_cards()
             << ", number dealt cards: " << standard_deck.num_dealt_cards()

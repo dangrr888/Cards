@@ -9,11 +9,15 @@
 #include <ctime>
 #include <iterator>
 #include <stdexcept>
+
 // Boost
 #include "boost/serialization/strong_typedef.hpp"
 #include "boost/random.hpp"
+#include "boost/exception/all.hpp"
+
 // Custom
 #include "Card.h"
+#include "Error.h"
 
 namespace basic
 {
@@ -114,6 +118,10 @@ namespace basic
     /// @return The number of dealt Cards in this Deck.
     typename std::list<Card>::size_type num_dealt_cards() const noexcept;
 
+    /// @brief pretty print this Deck.
+    /// @param os The stream to which to serialize this Deck.
+    void print(std::ostream& os) const noexcept;
+
     // private data members
   private:
 
@@ -174,8 +182,7 @@ namespace basic
     const typename std::list<Card>::size_type n {num_undealt_cards()};
     if (n == 0)
     {
-      /// @todo Use boost error to get better error messages.
-      throw std::logic_error("All cards have been dealt!");
+      BOOST_THROW_EXCEPTION(deal_from_empty_deck{});
     }
     
     const std::time_t now = std::time(0);
@@ -217,14 +224,24 @@ namespace basic
     return m_dealt_cards.size();
   }
 
-  /*
-  template<typename SUIT, typename STANDARD>
-  std::ostream& operator<<(std::ostream& os, const Card<SUIT, STANDARD>& card)
+  template<typename Card>
+  void Deck<Card>::print(std::ostream& os) const noexcept
   {
-    os << "Card: SUIT: " << card.suit() << ", DENOM: " << card.denomenation();
+    os << "<Deck>\n";
+    for (const auto& card : m_undealt_cards)
+    {
+      os << "  " << card << "\n";
+    }
+    os << "</Deck>";
+    os.flush();
+  }
+  
+  template<typename Card>
+  std::ostream& operator<<(std::ostream& os, const Deck<Card>& deck)
+  {
+    deck.print(os);
     return os;
   }
-  */
  
 } // ! namespace basic
 

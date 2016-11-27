@@ -1,6 +1,10 @@
 #ifndef GUARD_CARD_H_
 #define GUARD_CARD_H_
 
+#include "suits.h"
+#include "denomenations.h"
+#include <iostream>
+
 namespace basic
 {
 
@@ -52,7 +56,7 @@ namespace basic
     /// @brief accessor for denomenation of this Card.
     /// @return denomenation of this Card.
     constexpr DENOMENATION denomenation() const noexcept;
-    
+
     // private data members
   private:
 
@@ -79,6 +83,17 @@ namespace basic
   constexpr DENOMENATION Card<SUIT, DENOMENATION>::denomenation() const noexcept
   {
     return m_denomenation;
+  }
+
+  template<typename S, typename D>
+  std::ostream& operator<<(std::ostream& os, const Card<S, D>& card)
+  {
+    os << "<Card "
+       << "suit=\"" << card.suit() << "\", "
+       << "denomenation=\"" << card.denomenation() << "\""
+       << ">";
+    
+    return os;
   }
   
 } // ! namespace basic

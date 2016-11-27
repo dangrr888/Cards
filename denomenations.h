@@ -22,7 +22,6 @@ enum class STANDARD
   JOKER  
 }; // ! enumeration STANDARD
 
-/// @todo - rewrite this in terms of constexpr functions.
 std::ostream& operator<<(std::ostream& os, STANDARD denom)
 {
   switch (denom)

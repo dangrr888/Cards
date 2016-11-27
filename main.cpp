@@ -66,15 +66,19 @@ int main(int argc, char* argv[])
             << standard_deck
             << std::endl;
 
-  std::cout << "number of undealt cards: " << standard_deck.num_undealt_cards()
-            << ", number dealt cards: " << standard_deck.num_dealt_cards()
-            << std::endl;
+  // Deal cards until the Deck is empty
+  while(standard_deck.num_undealt_cards() > 0)
+  {
+    std::cout << "number of undealt cards: " << standard_deck.num_undealt_cards()
+              << ", number dealt cards: " << standard_deck.num_dealt_cards()
+              << std::endl;
 
-  // Deal a card...any card
-  card dealt_card = standard_deck.deal_card();
-  std::cout << "Dealt card suit: " << dealt_card.suit()
-            << ", Dealt card denomenation: " << dealt_card.denomenation()
-            << std::endl;
+    // Deal a card...any card
+    card dealt_card = standard_deck.deal_card();
+    std::cout << "Dealt card suit: " << dealt_card.suit()
+              << ", Dealt card denomenation: " << dealt_card.denomenation()
+              << std::endl;
+  }
 
   // Print Deck stats after dealing cards
   std::cout << "standard deck AFTER dealing:\n"
@@ -84,6 +88,9 @@ int main(int argc, char* argv[])
   std::cout << "number of undealt cards: " << standard_deck.num_undealt_cards()
             << ", number dealt cards: " << standard_deck.num_dealt_cards()
             << std::endl;
+
+
+  /// @todo Add Hand class, which is a struct containing references to Cards.
 
   return EXIT_SUCCESS;
 }

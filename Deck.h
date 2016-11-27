@@ -92,8 +92,7 @@ namespace basic
 
     /// Add a Card to this Deck.
     /// @param card Card to be added.
-    /// @attention NOT YET IMPLEMENTED.
-    void add_card(const Card& card);
+    void add_card(Card&& card);
 
     /// @brief Get a random un-dealt Card of this Deck.
     /// @detail Dealing a Card renders it dealt.
@@ -171,7 +170,7 @@ namespace basic
   }
   
   template<typename Card>
-  void Deck<Card>::add_card(const Card& card)
+  void Deck<Card>::add_card(Card&& card)
   {
     m_undealt_cards.push_back(card);
   }

@@ -21,7 +21,15 @@ int main(int argc, char* argv[])
 
   /// @todo - why am i doing this? More and more reasons to make these enums classes.
   ///  since most of the time the user will want to add all the permutations.
-  const std::list<suit> suits {suit::HEARTS, suit::DIAMONDS, suit::SPADES, suit::CLUBS};
+  /// but wont get that unless we wrap suits and denomenations with iteratorable classes.
+  const std::list<suit> suits
+  {
+    suit::HEARTS,
+    suit::DIAMONDS,
+    suit::SPADES,
+    suit::CLUBS
+  };
+
   const std::list<denom> denoms
   {
     denom::ACE,
@@ -39,8 +47,6 @@ int main(int argc, char* argv[])
     denom::KING
   };
 
-  /// @todo - add 3-parameter Deck constructor and Deck::add_card so that we can add Jokers.
-
   // Create a Deck
   basic::Deck<card> standard_deck( suits.cbegin()
 				 , suits.cend()
@@ -49,7 +55,14 @@ int main(int argc, char* argv[])
 				 , deck::Id{1}
 				 );
 
-  std::cout << "standard deck:\n"
+  // Add Joker's
+  for (int i = 0; i < 2; ++i)
+  {
+    standard_deck.add_card(card(suit::NONE, denom::JOKER));
+  }
+
+  // Print Deck stats before dealing cards
+  std::cout << "standard deck BEFORE dealing:\n"
             << standard_deck
             << std::endl;
 
@@ -57,10 +70,15 @@ int main(int argc, char* argv[])
             << ", number dealt cards: " << standard_deck.num_dealt_cards()
             << std::endl;
 
-  // Get a card...any card
+  // Deal a card...any card
   card dealt_card = standard_deck.deal_card();
   std::cout << "Dealt card suit: " << dealt_card.suit()
             << ", Dealt card denomenation: " << dealt_card.denomenation()
+            << std::endl;
+
+  // Print Deck stats after dealing cards
+  std::cout << "standard deck AFTER dealing:\n"
+            << standard_deck
             << std::endl;
 
   std::cout << "number of undealt cards: " << standard_deck.num_undealt_cards()

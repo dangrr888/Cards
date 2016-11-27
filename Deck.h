@@ -27,16 +27,6 @@ namespace basic
   template<typename Card>
   class Deck
   {
-    // @todo - add static assert to ensure that Card has specific interface
-    // static assertions
-    /*
-    static_assert( ( std::is_base_of<basic::Card, Card>::value || 
-                     std::is_same<basic::Card, Card>::value
-                    )
-                 , "Cards in this Deck must be derived from basic::Card."
-                 );
-    */
-
     // public aliases    
   public:
 
@@ -68,7 +58,7 @@ namespace basic
     /// @param id Id of this Deck.
     /// @note Client is responsible for providing the Deck Id and to check
     ///  for uniqueness.
-    template<typename CardIter iter>
+    template<typename CardIter>
     explicit Deck( CardIter first_card
 		 , CardIter last_card
 		 , Id id
@@ -96,12 +86,10 @@ namespace basic
     /// public member functions
   public:
 
-#if 0
     /// Add a Card to this Deck.
     /// @param card Card to be added.
     /// @attention NOT YET IMPLEMENTED.
     void add_card(const Card& card);
-#endif    
 
     /// @brief Get a random un-dealt Card of this Deck.
     /// @detail Dealing a Card renders it dealt.
@@ -159,7 +147,7 @@ namespace basic
   }
 
   template<typename Card>
-  template<typename CardIter iter>
+  template<typename CardIter>
   Deck<Card>::Deck( CardIter first_card
                   , CardIter last_card
                   , Id id
@@ -170,10 +158,16 @@ namespace basic
   {
     for (CardIter iter = first_card; iter != last_card; ++iter)
     {
-      m_undealt_cards.push_back(std::move(*iter));
+      m_undealt_cards.push_back(*iter);
     }
   }
   
+  template<typename Card>
+  void Deck<Card>::add_card(const Card& card)
+  {
+    m_undealt_cards.push_back(card);
+  }
+
   template<typename Card>
   Card& Deck<Card>::deal_card()
   {
@@ -193,7 +187,7 @@ namespace basic
     std::advance(iter, distance);
     
     // move undealt card to dealt list
-    m_dealt_cards.push_back(*iter); // @todo - would be great if we could move this.
+    m_dealt_cards.push_back(std::move(*iter));
     m_undealt_cards.erase(iter);
     
     return m_dealt_cards.back();

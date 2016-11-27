@@ -23,8 +23,7 @@ enum class STANDARD
 }; // ! enumeration STANDARD
 
 /// @todo - rewrite this in terms of constexpr functions.
-std::ostream& operator<<( std::ostream& os
-			, STANDARD denom)
+std::ostream& operator<<(std::ostream& os, STANDARD denom)
 {
   switch (denom)
   {

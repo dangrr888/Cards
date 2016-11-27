@@ -56,26 +56,23 @@ namespace basic
     ///  for uniqueness.
     template<typename SuitIter, typename DenomIter>
     explicit Deck( SuitIter first_suit
-		, SuitIter last_suit
-		, DenomIter first_denom
-		, DenomIter last_denom
-		, Id id
-		);
+                 , SuitIter last_suit
+                 , DenomIter first_denom
+		 , DenomIter last_denom
+		 , Id id
+		 );
 
-#if 0
     /// @brief 3-parameter constructor.
     /// @param first_card iterator to the first card of this Deck.
     /// @param first_card iterator to the last card of this Deck.
     /// @param id Id of this Deck.
     /// @note Client is responsible for providing the Deck Id and to check
     ///  for uniqueness.
-    /// @attention NOT YET IMPLEMENTED.
     template<typename CardIter iter>
     explicit Deck( CardIter first_card
 		 , CardIter last_card
 		 , Id id
 		 );
-#endif
     
     /// @brief Copy constructor.
     /// @attention DELETED
@@ -129,9 +126,6 @@ namespace basic
     /// @return The number of dealt Cards in this Deck.
     typename std::list<Card>::size_type num_dealt_cards() const noexcept;
 
-    // private member functions
-  private:
-    
     // private data members
   private:
 
@@ -161,6 +155,22 @@ namespace basic
       {
         m_undealt_cards.push_back(std::move(Card(*suit, *denom)));
       }
+    }
+  }
+
+  template<typename Card>
+  template<typename CardIter iter>
+  Deck<Card>::Deck( CardIter first_card
+                  , CardIter last_card
+                  , Id id
+                  )
+    : m_undealt_cards()
+    , m_dealt_cards()
+    , m_id(id)
+  {
+    for (CardIter iter = first_card; iter != last_card; ++iter)
+    {
+      m_undealt_cards.push_back(std::move(*iter));
     }
   }
   

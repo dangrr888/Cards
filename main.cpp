@@ -59,7 +59,7 @@ int main(int argc, char* argv[])
             << std::endl;
 
   // Get a card...any card
-  auto& dealt_card = standard_deck.deal_card();
+  card dealt_card = standard_deck.deal_card();
   std::cout << "Dealt card suit: " << dealt_card.suit()
             << ", Dealt card denomenation: " << dealt_card.denomenation()
             << std::endl;

@@ -140,7 +140,7 @@ namespace basic
   {
     if (num_cards() < (idx + 1))
     {
-      BOOST_THROW_EXCEPTION(play_card_with_invalid_index{});
+      BOOST_THROW_EXCEPTION(error::play_card_with_invalid_index{});
     }
 
     auto iter {m_cards.cbegin()};

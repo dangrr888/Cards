@@ -188,7 +188,7 @@ namespace basic
     const typename std::list<const Card>::size_type n {num_undealt_cards()};
     if (n == 0)
     {
-      BOOST_THROW_EXCEPTION(deal_from_empty_deck{});
+      BOOST_THROW_EXCEPTION(error::deal_from_empty_deck{});
     }
     
     const std::time_t now = std::time(0);

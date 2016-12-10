@@ -10,20 +10,23 @@
 
 namespace basic
 {
-  
-  using errmsg_info = boost::error_info<struct tag_errmsg, std::string>;
-
-  // deal_from_empty_deck
-  struct deal_from_empty_deck : std::exception
+  namespace error
   {
-    const char* what() const noexcept { return "Attempt to deal card from empty Deck."; }
-  };
+    using errmsg_info = boost::error_info<struct tag_errmsg, std::string>;
 
-  // play_card_with_invalid_index
-  struct play_card_with_invalid_index : std::exception
-  {
-    const char* what() const noexcept { return "Attempt to play a card with invalid index."; }
-  };
+    // deal_from_empty_deck
+    struct deal_from_empty_deck : std::exception
+    {
+      const char* what() const noexcept { return "Attempt to deal card from empty Deck."; }
+    };
+
+    // play_card_with_invalid_index
+    struct play_card_with_invalid_index : std::exception
+    {
+      const char* what() const noexcept { return "Attempt to play a card with invalid index."; }
+    };
+
+  } // ! namespace error
   
 } // ! namespace basic
 

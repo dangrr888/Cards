@@ -25,7 +25,7 @@ namespace basic
   /*
    * A template class representing a basic
    * deck of cards. The class is templatized
-   * on the Card type, which must be a subclass
+   * on the Card type, which should be a subclass
    * of basic::Card.
    */
   template<typename Card>
@@ -61,7 +61,7 @@ namespace basic
     /// @param first_card iterator to the last card of this Deck.
     /// @param id Id of this Deck.
     /// @note Client is responsible for providing the Deck Id and to check
-    ///  for uniqueness.
+    ///   for uniqueness.
     template<typename CardIter>
     explicit Deck( CardIter first_card
 		 , CardIter last_card
@@ -69,23 +69,23 @@ namespace basic
 		 );
     
     /// @brief Copy constructor.
-    /// @attention DELETED
+    /// @attention DELETED.
     Deck(const Deck&) = delete;
 
     /// @brief Copy assignment operator.
-    /// @attention DELETED
+    /// @attention DELETED.
     Deck& operator=(const Deck&) = delete;
 
     /// @brief Move constructor.
-    /// @attention DELETED
+    /// @attention DELETED.
     Deck(Deck&&) = delete;
     
     /// @brief Move assignment operator.
-    /// @attention DELETED
+    /// @attention DELETED.
     Deck& operator=(Deck&&) = delete;
     
     /// @brief Destructor.
-    virtual ~Deck() = default;
+    ~Deck() = default;
     
     /// public member functions
   public:
@@ -99,11 +99,11 @@ namespace basic
     /// @return A random un-dealt Card of this Deck.
     /// @pre The number of undealt cards must be greater than zero
     ///  otherwise this function will throw an exception.
-    Card& deal_card();
+    const Card& deal_card();
     
     /// @brief Get number of Cards in this Deck.
     /// @return The number of Cards in this Deck.
-    typename std::list<Card>::size_type num_cards() const noexcept;
+    typename std::list<const Card>::size_type num_cards() const noexcept;
     
     /// @brief Get the id of this Deck.
     /// @return the id of this Deck.
@@ -111,11 +111,11 @@ namespace basic
 
     /// @brief Get number of un-dealt Cards in this Deck.
     /// @return The number of un-dealt Cards in this Deck.
-    typename std::list<Card>::size_type num_undealt_cards() const noexcept;
+    typename std::list<const Card>::size_type num_undealt_cards() const noexcept;
 
     /// @brief Get number of dealt Cards in this Deck.
     /// @return The number of dealt Cards in this Deck.
-    typename std::list<Card>::size_type num_dealt_cards() const noexcept;
+    typename std::list<const Card>::size_type num_dealt_cards() const noexcept;
 
     /// @brief pretty print this Deck.
     /// @param os The stream to which to serialize this Deck.
@@ -124,12 +124,19 @@ namespace basic
     // private data members
   private:
 
-    typename std::list<Card> m_undealt_cards;
-    typename std::list<Card> m_dealt_cards;
+    typename std::list<const Card> m_undealt_cards;
+    typename std::list<const Card> m_dealt_cards;
     Id m_id;
 
   }; // ! class Deck
   
+  /// @brief Inserter for Deck class.
+  /// @param os Output stream to which data is to be serialised.
+  /// @param deck The Deck object that is to be serialised.
+  /// @return The updated version of the output stream specified.
+  template<typename Card>
+  std::ostream& operator<<(std::ostream& os, const Deck<Card>& deck);
+
   //----------------- Deck member function defintiions -----------------------//
 
   template<typename Card>
@@ -176,9 +183,9 @@ namespace basic
   }
 
   template<typename Card>
-  Card& Deck<Card>::deal_card()
+  const Card& Deck<Card>::deal_card()
   {
-    const typename std::list<Card>::size_type n {num_undealt_cards()};
+    const typename std::list<const Card>::size_type n {num_undealt_cards()};
     if (n == 0)
     {
       BOOST_THROW_EXCEPTION(deal_from_empty_deck{});
@@ -200,7 +207,7 @@ namespace basic
   }
   
   template<typename Card>
-  typename std::list<Card>::size_type Deck<Card>::num_cards() const noexcept
+  typename std::list<const Card>::size_type Deck<Card>::num_cards() const noexcept
   {
     return m_undealt_cards.size() + m_dealt_cards.size();
   }
@@ -212,13 +219,13 @@ namespace basic
   }
  
   template<typename Card>
-  typename std::list<Card>::size_type Deck<Card>::num_undealt_cards() const noexcept
+  typename std::list<const Card>::size_type Deck<Card>::num_undealt_cards() const noexcept
   {
     return m_undealt_cards.size();
   }
 
   template<typename Card>
-  typename std::list<Card>::size_type Deck<Card>::num_dealt_cards() const noexcept
+  typename std::list<const Card>::size_type Deck<Card>::num_dealt_cards() const noexcept
   {
     return m_dealt_cards.size();
   }

@@ -49,11 +49,11 @@ namespace basic
     // public member functions
   public:
 
-    /// @brief accessor for suit of this Card.
+    /// @brief Accessor for suit of this Card.
     /// @return suit of this Card.
     constexpr SUIT suit() const noexcept;
     
-    /// @brief accessor for denomenation of this Card.
+    /// @brief Accessor for denomenation of this Card.
     /// @return denomenation of this Card.
     constexpr DENOMENATION denomenation() const noexcept;
 
@@ -64,6 +64,13 @@ namespace basic
     const DENOMENATION m_denomenation;
     
   }; // !class Card
+
+  /// @brief Inserter for Card class.
+  /// @param os Output stream to which data is to be serialised.
+  /// @param card The Card object that is to be serialised.
+  /// @return The updated version of the output stream specified.
+  template<typename S, typename D>
+  std::ostream& operator<<(std::ostream& os, const Card<S, D>& card);
 
   //------------ Card - member function definitions ---------------------------- //
 

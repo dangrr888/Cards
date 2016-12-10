@@ -6,6 +6,7 @@
 #include "denomenations.h"
 #include "Deck.h"
 #include "Card.h"
+#include "Hand.h"
 
 int main(int argc, char* argv[])
 {
@@ -14,6 +15,7 @@ int main(int argc, char* argv[])
   using denom = denomenations::STANDARD;
   using card = basic::Card<suit, denom>;
   using deck = basic::Deck<card>;
+  using hand = basic::Hand<card>;
 
   const card ace_of_spades(suit::HEARTS, denom::ACE);
 
@@ -66,6 +68,63 @@ int main(int argc, char* argv[])
             << standard_deck
             << std::endl;
 
+  std::cout << "number of undealt cards: " << standard_deck.num_undealt_cards()
+            << ", number dealt cards: " << standard_deck.num_dealt_cards()
+            << std::endl;
+
+  // Deal a hand of cards
+  hand dealt_hand(hand::Id{1});
+
+  // Print Hand stats before dealing
+  std::cout << "hand BEFORE dealing:\n"
+            << dealt_hand
+            << std::endl;
+
+  std::cout << "number of cards in hand: " << dealt_hand.num_cards()
+            << std::endl;
+
+  for (int i = 0; i < 5; ++i)
+  {
+    dealt_hand.add_card(standard_deck.deal_card());
+  }
+
+  // Print Hand stats after dealing
+  std::cout << "hand AFTER dealing:\n"
+            << dealt_hand
+            << std::endl;
+
+  std::cout << "number of cards in hand: " << dealt_hand.num_cards()
+            << std::endl;
+
+  // Play cards exhaustively
+  while(dealt_hand.num_cards() > 0)
+  {
+    const card& dealt_card = dealt_hand.play_card(0);
+    std::cout << "Dealt card suit: " << dealt_card.suit()
+              << ", Dealt card denomenation: " << dealt_card.denomenation()
+              << std::endl;
+
+    std::cout << "number of cards in hand: " << dealt_hand.num_cards()
+              << std::endl;
+  }
+
+  // Print Hand stats after playing exhaustively
+  std::cout << "hand AFTER dealing exhaustively:\n"
+            << dealt_hand
+            << std::endl;
+
+  std::cout << "number of cards in hand: " << dealt_hand.num_cards()
+            << std::endl;
+
+  // Print Deck stats after dealing hand
+  std::cout << "standard deck AFTER dealing hand:\n"
+            << standard_deck
+            << std::endl;
+
+  std::cout << "number of undealt cards: " << standard_deck.num_undealt_cards()
+            << ", number dealt cards: " << standard_deck.num_dealt_cards()
+            << std::endl;
+
   // Deal cards until the Deck is empty
   while(standard_deck.num_undealt_cards() > 0)
   {
@@ -81,16 +140,13 @@ int main(int argc, char* argv[])
   }
 
   // Print Deck stats after dealing cards
-  std::cout << "standard deck AFTER dealing:\n"
+  std::cout << "standard deck AFTER exhaustive dealing:\n"
             << standard_deck
             << std::endl;
 
   std::cout << "number of undealt cards: " << standard_deck.num_undealt_cards()
             << ", number dealt cards: " << standard_deck.num_dealt_cards()
             << std::endl;
-
-
-  /// @todo Add Hand class, which is a struct containing references to Cards.
 
   return EXIT_SUCCESS;
 }

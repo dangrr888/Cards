@@ -1,4 +1,5 @@
 *~
-main
+./main
 doc/*
+bin/*
 .DS_Store

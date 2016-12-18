@@ -27,46 +27,46 @@ std::ostream& operator<<(std::ostream& os, STANDARD denom)
   switch (denom)
   {
   case STANDARD::ACE:
-    std::cout << "ACE";
+    os << "ACE";
     break;
   case STANDARD::TWO:
-    std::cout << "TWO";
+    os << "TWO";
     break;
   case STANDARD::THREE:
-    std::cout << "THREE";
+    os << "THREE";
     break;
   case STANDARD::FOUR:
-    std::cout << "FOUR";
+    os << "FOUR";
     break;
   case STANDARD::FIVE:
-    std::cout << "FIVE";
+    os << "FIVE";
     break;
   case STANDARD::SIX:
-    std::cout << "SIX";
+    os << "SIX";
     break;
   case STANDARD::SEVEN:
-    std::cout << "SEVEN";
+    os << "SEVEN";
     break;
   case STANDARD::EIGHT:
-    std::cout << "EIGHT";
+    os << "EIGHT";
     break;
   case STANDARD::NINE:
-    std::cout << "NINE";
+    os << "NINE";
     break;
   case STANDARD::TEN:
-    std::cout << "TEN";
+    os << "TEN";
     break;
   case STANDARD::JACK:
-    std::cout << "JACK";
+    os << "JACK";
     break;
   case STANDARD::QUEEN:
-    std::cout << "QUEEN";
+    os << "QUEEN";
     break;
   case STANDARD::KING:
-    std::cout << "KING";
+    os << "KING";
     break;
   case STANDARD::JOKER:
-    std::cout << "JOKER";
+    os << "JOKER";
     break;
   default:
     break;

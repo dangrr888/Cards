@@ -20,19 +20,19 @@ std::ostream& operator<<(std::ostream& os, STANDARD suit)
   switch (suit)
   {
   case STANDARD::HEARTS:
-    std::cout << "HEARTS";
+    os << "HEARTS";
     break;
   case STANDARD::DIAMONDS:
-    std::cout << "DIAMONDS";
+    os << "DIAMONDS";
     break;
   case STANDARD::SPADES:
-    std::cout << "SPADES";
+    os << "SPADES";
     break;
   case STANDARD::CLUBS:
-    std::cout << "CLUBS";
+    os << "CLUBS";
     break;
   case STANDARD::NONE:
-    std::cout << "NONE";
+    os << "NONE";
     break;
   default:
     break;

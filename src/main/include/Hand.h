@@ -58,7 +58,7 @@ namespace basic
     Hand(const Hand&) = delete;
 
     /// @brief Copy-assignment operator.
-    /// @attemtion DELETED.
+    /// @attention DELETED.
     Hand& operator=(const Hand&) = delete;
 
     /// @brief Move constructor.

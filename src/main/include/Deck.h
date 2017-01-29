@@ -140,7 +140,7 @@ namespace basic
   template<typename Card>
   std::ostream& operator<<(std::ostream& os, const Deck<Card>& deck);
 
-  //----------------- Deck member function defintiions -----------------------//
+  //----------------- Deck member function definitions -----------------------//
 
   template<typename Card>
   template<typename SuitIter, typename DenomIter>
@@ -192,6 +192,7 @@ namespace basic
   {
     m_cards.push_back(card);
     m_undealt_cards.push_back(&m_cards.back());
+
     std::random_shuffle(m_undealt_cards.begin(), m_undealt_cards.end());
   }
 

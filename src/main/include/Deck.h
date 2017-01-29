@@ -3,12 +3,14 @@
 
 // C++
 #include <list>
+#include <deque>
 #include <cstdint>
 #include <utility>
 #include <type_traits>
 #include <ctime>
 #include <iterator>
 #include <stdexcept>
+#include <algorithm>
 
 // Boost
 #include "boost/serialization/strong_typedef.hpp"
@@ -111,7 +113,7 @@ namespace basic
 
     /// @brief Get number of un-dealt Cards in this Deck.
     /// @return The number of un-dealt Cards in this Deck.
-    typename std::list<const Card>::size_type num_undealt_cards() const noexcept;
+    typename std::deque<const Card>::size_type num_undealt_cards() const noexcept;
 
     /// @brief Get number of dealt Cards in this Deck.
     /// @return The number of dealt Cards in this Deck.
@@ -125,7 +127,7 @@ namespace basic
   private:
 
     typename std::list<const Card> m_cards;
-    typename std::list<const Card*> m_undealt_cards;
+    typename std::deque<const Card*> m_undealt_cards;
     typename std::list<const Card*> m_dealt_cards;
     Id m_id;
 
@@ -161,6 +163,8 @@ namespace basic
         m_undealt_cards.push_back(&m_cards.back());
       }
     }
+
+    std::random_shuffle(m_undealt_cards.begin(), m_undealt_cards.end());
   }
 
   template<typename Card>
@@ -179,6 +183,8 @@ namespace basic
       m_cards.push_back(*iter);
       m_undealt_cards.push_back(&m_cards.back());
     }
+
+    std::random_shuffle(m_undealt_cards.begin(), m_undealt_cards.end());
   }
   
   template<typename Card>
@@ -186,30 +192,23 @@ namespace basic
   {
     m_cards.push_back(card);
     m_undealt_cards.push_back(&m_cards.back());
+    std::random_shuffle(m_undealt_cards.begin(), m_undealt_cards.end());
   }
 
   template<typename Card>
   const Card* Deck<Card>::deal_card()
   {
-    const typename std::list<const Card>::size_type n {num_undealt_cards()};
+    const typename std::deque<const Card>::size_type n {num_undealt_cards()};
     if (n == 0)
     {
       BOOST_THROW_EXCEPTION(error::deal_from_empty_deck{});
     }
     
-    const std::time_t now = std::time(0);
-    boost::random::mt19937 gen{static_cast<std::uint32_t>(now)};
-    boost::random::uniform_int_distribution<> dist{0, static_cast<int>(n-1)};
-    auto distance {dist(gen)};
-
-    auto iter {m_undealt_cards.cbegin()};
-    std::advance(iter, distance);
+    const Card* pCard = m_undealt_cards.back(); 
+    m_dealt_cards.push_back(pCard);
+    m_undealt_cards.pop_back();
     
-    // move undealt card to dealt list
-    m_dealt_cards.push_back(*iter); // copying a pointer
-    m_undealt_cards.erase(iter);
-    
-    return m_dealt_cards.back();
+    return pCard;
   }
   
   template<typename Card>
@@ -225,7 +224,7 @@ namespace basic
   }
  
   template<typename Card>
-  typename std::list<const Card>::size_type Deck<Card>::num_undealt_cards() const noexcept
+  typename std::deque<const Card>::size_type Deck<Card>::num_undealt_cards() const noexcept
   {
     return m_undealt_cards.size();
   }

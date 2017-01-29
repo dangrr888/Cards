@@ -99,7 +99,7 @@ namespace basic
     /// @return A random un-dealt Card of this Deck.
     /// @pre The number of undealt cards must be greater than zero
     ///  otherwise this function will throw an exception.
-    const Card& deal_card();
+    const Card* deal_card();
     
     /// @brief Get number of Cards in this Deck.
     /// @return The number of Cards in this Deck.
@@ -124,8 +124,9 @@ namespace basic
     // private data members
   private:
 
-    typename std::list<const Card> m_undealt_cards;
-    typename std::list<const Card> m_dealt_cards;
+    typename std::list<const Card> m_cards;
+    typename std::list<const Card*> m_undealt_cards;
+    typename std::list<const Card*> m_dealt_cards;
     Id m_id;
 
   }; // ! class Deck
@@ -147,7 +148,8 @@ namespace basic
                   , DenomIter last_denom
                   , Id id
                   )
-    : m_undealt_cards()
+    : m_cards()
+    , m_undealt_cards()
     , m_dealt_cards()
     , m_id(id)
   {
@@ -155,7 +157,8 @@ namespace basic
     {
       for(DenomIter denom = first_denom; denom != last_denom; ++denom)
       {
-        m_undealt_cards.push_back(std::move(Card(*suit, *denom)));
+        m_cards.push_back(std::move(Card(*suit, *denom)));
+        m_undealt_cards.push_back(&m_cards.back());
       }
     }
   }
@@ -166,24 +169,27 @@ namespace basic
                   , CardIter last_card
                   , Id id
                   )
-    : m_undealt_cards()
+    : m_cards()
+    , m_undealt_cards()
     , m_dealt_cards()
     , m_id(id)
   {
     for (CardIter iter = first_card; iter != last_card; ++iter)
     {
-      m_undealt_cards.push_back(*iter);
+      m_cards.push_back(*iter);
+      m_undealt_cards.push_back(&m_cards.back());
     }
   }
   
   template<typename Card>
   void Deck<Card>::add_card(Card&& card)
   {
-    m_undealt_cards.push_back(card);
+    m_cards.push_back(card);
+    m_undealt_cards.push_back(&m_cards.back());
   }
 
   template<typename Card>
-  const Card& Deck<Card>::deal_card()
+  const Card* Deck<Card>::deal_card()
   {
     const typename std::list<const Card>::size_type n {num_undealt_cards()};
     if (n == 0)
@@ -200,7 +206,7 @@ namespace basic
     std::advance(iter, distance);
     
     // move undealt card to dealt list
-    m_dealt_cards.push_back(std::move(*iter));
+    m_dealt_cards.push_back(*iter); // copying a pointer
     m_undealt_cards.erase(iter);
     
     return m_dealt_cards.back();
@@ -209,7 +215,7 @@ namespace basic
   template<typename Card>
   typename std::list<const Card>::size_type Deck<Card>::num_cards() const noexcept
   {
-    return m_undealt_cards.size() + m_dealt_cards.size();
+    return m_cards.size();
   }
    
   template<typename Card>
@@ -234,9 +240,9 @@ namespace basic
   void Deck<Card>::print(std::ostream& os) const noexcept
   {
     os << "<Deck>\n";
-    for (const auto& card : m_undealt_cards)
+    for (auto pcard : m_undealt_cards)
     {
-      os << "  " << card << "\n";
+      os << "  " << *pcard << "\n";
     }
     os << "</Deck>";
     os.flush();

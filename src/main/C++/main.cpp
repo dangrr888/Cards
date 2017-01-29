@@ -99,9 +99,9 @@ int main(int argc, char* argv[])
   // Play cards exhaustively
   while(dealt_hand.num_cards() > 0)
   {
-    const card& dealt_card = dealt_hand.play_card(0);
-    std::cout << "Dealt card suit: " << dealt_card.suit()
-              << ", Dealt card denomenation: " << dealt_card.denomenation()
+    const card* dealt_card = dealt_hand.play_card(0);
+    std::cout << "Dealt card suit: " << dealt_card->suit()
+              << ", Dealt card denomenation: " << dealt_card->denomenation()
               << std::endl;
 
     std::cout << "number of cards in hand: " << dealt_hand.num_cards()
@@ -133,9 +133,9 @@ int main(int argc, char* argv[])
               << std::endl;
 
     // Deal a card...any card
-    card dealt_card = standard_deck.deal_card();
-    std::cout << "Dealt card suit: " << dealt_card.suit()
-              << ", Dealt card denomenation: " << dealt_card.denomenation()
+    const card* dealt_card = standard_deck.deal_card();
+    std::cout << "Dealt card suit: " << dealt_card->suit()
+              << ", Dealt card denomenation: " << dealt_card->denomenation()
               << std::endl;
   }
 

@@ -77,12 +77,12 @@ namespace basic
 
     /// @brief Add a card to this Hand.
     /// @param card The Card to be added to this Hand.
-    void add_card(const Card& card);
+    void add_card(const Card* card);
 
     /// @brief Play a card from this Hand.
     /// @param idx Index of the Card to play. Indices start from 0.
     /// @return The Card that was played.
-    const Card& play_card(typename std::list<const Card*>::size_type idx);
+    const Card* play_card(typename std::list<const Card*>::size_type idx);
 
     /// @brief Get the number of Cards associated with this Hand.
     /// @return The number  of Cards associated with this Hand.
@@ -129,13 +129,13 @@ namespace basic
   {}
 
   template<typename Card>
-  void Hand<Card>::add_card(const Card& card)
+  void Hand<Card>::add_card(const Card* card)
   {
-    m_cards.push_back(&card);
+    m_cards.push_back(card);
   }
 
   template<typename Card>
-  const Card&
+  const Card*
   Hand<Card>::play_card(typename std::list<const Card*>::size_type idx)
   {
     if (num_cards() < (idx + 1))
@@ -148,7 +148,7 @@ namespace basic
     
     const Card* ret = *iter;
     m_cards.erase(iter);
-    return *ret;
+    return ret;
   }
 
   template<typename Card>

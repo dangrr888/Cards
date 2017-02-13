@@ -84,6 +84,21 @@ namespace basic
     /// @return The Card that was played.
     const Card* play_card(typename std::list<const Card*>::size_type idx);
 
+    /// @brief Peek at a card from this Hand.
+    /// @param idx Index of the Card to peek. Indices start from 0.
+    /// @return The Card that was peeked.
+    const Card* peek_card(typename std::list<const Card*>::size_type idx);
+
+    /// @brief Get the first card of this Hand.
+    /// @return A const iterator to the first Card of this Hand.
+    typename std::list<const Card*>::const_iterator
+    cbegin() const noexcept;
+
+    /// @brief Get the last card of this Hand.
+    /// @return A const iterator to the last Card of this Hand.
+    typename std::list<const Card*>::const_iterator
+    cend() const noexcept;
+
     /// @brief Get the number of Cards associated with this Hand.
     /// @return The number  of Cards associated with this Hand.
     typename std::list<const Card*>::size_type num_cards() const noexcept;
@@ -95,6 +110,15 @@ namespace basic
     /// @brief pretty print this Hand.
     /// @param os The stream to which to serialize this Hand.
     void print(std::ostream& os) const noexcept;
+
+    // private member functions.
+  private:
+    
+    /// @brief Get a card from this Hand.
+    /// @param idx Index of the Card to get. Indices start from 0.
+    /// @return A const iterator to the specified Card.
+    typename std::list<const Card*>::const_iterator
+    get_card(typename std::list<const Card*>::size_type idx) const;
 
     // private data members.
    private:
@@ -135,8 +159,8 @@ namespace basic
   }
 
   template<typename Card>
-  const Card*
-  Hand<Card>::play_card(typename std::list<const Card*>::size_type idx)
+  typename std::list<const Card*>::const_iterator
+  Hand<Card>::get_card(typename std::list<const Card*>::size_type idx) const
   {
     if (num_cards() < (idx + 1))
     {
@@ -146,9 +170,37 @@ namespace basic
     auto iter {m_cards.cbegin()};
     std::advance(iter, idx);
     
+    return iter;
+  }
+
+  template<typename Card>
+  const Card*
+  Hand<Card>::play_card(typename std::list<const Card*>::size_type idx)
+  {
+    auto iter = this->get_card(idx);
     const Card* ret = *iter;
     m_cards.erase(iter);
     return ret;
+  }
+
+  template<typename Card>
+  const Card*
+  Hand<Card>::peek_card(typename std::list<const Card*>::size_type idx) const
+  {
+    auto iter = this->get_card(idx);
+    return *iter;
+  }
+
+  typename std::list<const Card*>::const_iterator
+  Hand<Card>::cbegin() const noexcept
+  {
+    return m_cards.cbegin();
+  }
+  
+  typename std::list<const Card*>::const_iterator
+  Hand<Card>::cend() const noexcept
+  {
+    return m_cards.cend();
   }
 
   template<typename Card>

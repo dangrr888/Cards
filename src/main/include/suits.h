@@ -13,6 +13,7 @@ enum class STANDARD
   SPADES,
   CLUBS,
   NONE
+
 }; // ! enumeration STANDARD
 
 std::ostream& operator<<(std::ostream& os, STANDARD suit)

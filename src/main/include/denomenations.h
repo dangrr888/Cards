@@ -1,10 +1,10 @@
-#ifndef GUARD_DENOMENATIONS_H_
+#ifndef GUARD_DENOMENATIONS_H_ /// @todo - rename this file and update the header guards
 #define GUARD_DENOMENATIONS_H_
 
-namespace denomenations
+namespace denomenations /// @todo - change this to basic namespace
 {
 
-enum class STANDARD
+enum class STANDARD /// @todo - change this to STANDARDDENOMENATION
 {
   ACE,
   TWO,
@@ -20,6 +20,7 @@ enum class STANDARD
   QUEEN,
   KING,
   JOKER  
+
 }; // ! enumeration STANDARD
 
 std::ostream& operator<<(std::ostream& os, STANDARD denom)

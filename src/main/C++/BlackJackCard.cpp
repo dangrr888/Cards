@@ -1,4 +1,6 @@
 #include "BlackJackCard.h"
+#include "BlackJackDenomenations.h"
+
 #include <cstdint>
 
 namespace blackjack
@@ -6,45 +8,45 @@ namespace blackjack
 
   bool BlackJackCard::ace() const noexcept
   {
-    return this->suit() == BLACKJACKCARD::ACE;
+    return this->denomenation() == BLACKJACKDENOMENATION::ACE;
   }
 
-  uint4_t BlackJackCard::min_value() const noexcept
+  uint8_t BlackJackCard::min_value() const noexcept
   {
-    uint4_t val = 0;
+    uint8_t val = 0;
     switch (this->denomenation())
       {
-      case BLACKJACKCARD::ACE:
+      case BLACKJACKDENOMENATION::ACE:
 	val = 1;
 	break;
-      case BLACKJACKCARD::TWO:
+      case BLACKJACKDENOMENATION::TWO:
 	val = 2;
 	break;
-      case BLACKJACKCARD::THREE:
+      case BLACKJACKDENOMENATION::THREE:
 	val = 3;
 	break;
-      case BLACKJACKCARD::FOUR:
+      case BLACKJACKDENOMENATION::FOUR:
 	val = 4;
 	break;
-      case BLACKJACKCARD::FIVE:
+      case BLACKJACKDENOMENATION::FIVE:
 	val = 5;
 	break;
-      case BLACKJACKCARD::SIX:
+      case BLACKJACKDENOMENATION::SIX:
 	val = 6;
 	break;
-      case BLACKJACKCARD::SEVEN:
+      case BLACKJACKDENOMENATION::SEVEN:
 	val = 7;
 	break;
-      case BLACKJACKCARD::EIGHT:
+      case BLACKJACKDENOMENATION::EIGHT:
 	val = 8;
 	break;
-      case BLACKJACKCARD::NINE:
+      case BLACKJACKDENOMENATION::NINE:
 	val = 9;
 	break;
-      case BLACKJACKCARD::TEN:
-      case BLACKJACKCARD::JACK:
-      case BLACKJACKCARD::QUEEN:
-      case BLACKJACKCARD::KING:
+      case BLACKJACKDENOMENATION::TEN:
+      case BLACKJACKDENOMENATION::JACK:
+      case BLACKJACKDENOMENATION::QUEEN:
+      case BLACKJACKDENOMENATION::KING:
 	val = 10;
 	break;
       default:
@@ -54,9 +56,9 @@ namespace blackjack
     return val;
   }
 
-  uint4_t BlackJackCard::max_value() const noexcept
+  uint8_t BlackJackCard::max_value() const noexcept
   {
-    uint4_t val = 0;
+    uint8_t val = 0;
     if (this->ace())
     {
       val = 11;

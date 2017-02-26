@@ -7,7 +7,6 @@
 
 namespace blackjack
 {
-
   class BlackJackHand
     : public basic::Hand<blackjack::BlackJackCard>
   {

@@ -87,14 +87,14 @@ namespace basic
     /// @brief Peek at a card from this Hand.
     /// @param idx Index of the Card to peek. Indices start from 0.
     /// @return The Card that was peeked.
-    const Card* peek_card(typename std::list<const Card*>::size_type idx);
+    const Card* peek_card(typename std::list<const Card*>::size_type idx) const;
 
-    /// @brief Get the first card of this Hand.
+    /// @brief Get a const iterator to the first card of this Hand.
     /// @return A const iterator to the first Card of this Hand.
     typename std::list<const Card*>::const_iterator
     cbegin() const noexcept;
 
-    /// @brief Get the last card of this Hand.
+    /// @brief Get a constant iterator to one past the last card of this Hand.
     /// @return A const iterator to the last Card of this Hand.
     typename std::list<const Card*>::const_iterator
     cend() const noexcept;
@@ -113,7 +113,7 @@ namespace basic
 
     // private member functions.
   private:
-    
+
     /// @brief Get a card from this Hand.
     /// @param idx Index of the Card to get. Indices start from 0.
     /// @return A const iterator to the specified Card.
@@ -164,12 +164,12 @@ namespace basic
   {
     if (num_cards() < (idx + 1))
     {
-      BOOST_THROW_EXCEPTION(error::play_card_with_invalid_index{});
+      BOOST_THROW_EXCEPTION(error::play_card_with_invalid_index{}); /// @todo - change error name to get_card...
     }
 
     auto iter {m_cards.cbegin()};
     std::advance(iter, idx);
-    
+
     return iter;
   }
 
@@ -191,12 +191,14 @@ namespace basic
     return *iter;
   }
 
+  template<typename Card>
   typename std::list<const Card*>::const_iterator
   Hand<Card>::cbegin() const noexcept
   {
     return m_cards.cbegin();
   }
-  
+
+  template<typename Card>
   typename std::list<const Card*>::const_iterator
   Hand<Card>::cend() const noexcept
   {
@@ -225,7 +227,7 @@ namespace basic
       os << "  " << *card << "\n";
     }
     os << "</Hand>";
-    os.flush();    
+    os.flush();
   }
 
   template<typename Card>

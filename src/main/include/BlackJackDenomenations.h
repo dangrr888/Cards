@@ -6,7 +6,7 @@
 namespace blackjack
 {
 
-  enum class BLACKJACKDENOMENTATION
+  enum class BLACKJACKDENOMENATION
   {
     ACE,
     TWO,

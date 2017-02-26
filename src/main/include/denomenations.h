@@ -1,80 +1,31 @@
 #ifndef GUARD_DENOMENATIONS_H_ /// @todo - rename this file and update the header guards
 #define GUARD_DENOMENATIONS_H_
 
+#include <iosfwd>
+
 namespace denomenations /// @todo - change this to basic namespace
 {
 
-enum class STANDARD /// @todo - change this to STANDARDDENOMENATION
-{
-  ACE,
-  TWO,
-  THREE,
-  FOUR,
-  FIVE,
-  SIX,
-  SEVEN,
-  EIGHT,
-  NINE,
-  TEN,
-  JACK,
-  QUEEN,
-  KING,
-  JOKER  
-
-}; // ! enumeration STANDARD
-
-std::ostream& operator<<(std::ostream& os, STANDARD denom)
-{
-  switch (denom)
+  enum class STANDARD /// @todo - change this to STANDARDDENOMENATION
   {
-  case STANDARD::ACE:
-    os << "ACE";
-    break;
-  case STANDARD::TWO:
-    os << "TWO";
-    break;
-  case STANDARD::THREE:
-    os << "THREE";
-    break;
-  case STANDARD::FOUR:
-    os << "FOUR";
-    break;
-  case STANDARD::FIVE:
-    os << "FIVE";
-    break;
-  case STANDARD::SIX:
-    os << "SIX";
-    break;
-  case STANDARD::SEVEN:
-    os << "SEVEN";
-    break;
-  case STANDARD::EIGHT:
-    os << "EIGHT";
-    break;
-  case STANDARD::NINE:
-    os << "NINE";
-    break;
-  case STANDARD::TEN:
-    os << "TEN";
-    break;
-  case STANDARD::JACK:
-    os << "JACK";
-    break;
-  case STANDARD::QUEEN:
-    os << "QUEEN";
-    break;
-  case STANDARD::KING:
-    os << "KING";
-    break;
-  case STANDARD::JOKER:
-    os << "JOKER";
-    break;
-  default:
-    break;
-  }
-  
-  return os;
-}
+    ACE,
+    TWO,
+    THREE,
+    FOUR,
+    FIVE,
+    SIX,
+    SEVEN,
+    EIGHT,
+    NINE,
+    TEN,
+    JACK,
+    QUEEN,
+    KING,
+    JOKER
+
+  }; // ! enumeration STANDARD
+
+  std::ostream& operator<<(std::ostream& os, STANDARD denom);
 
 } // ! namespace denomenations
 

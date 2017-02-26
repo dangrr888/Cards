@@ -24,22 +24,23 @@ namespace blackjack
   uint8_t BlackJackHand::value() const
   {
     uint8_t val = 0;
-    uint4_t num_aces = 0;
-    boost::optional<uint4_t> ace_val_range; /// @todo - make const uint4_t if can
+    uint8_t num_aces = 0;
+    boost::optional<uint8_t> ace_val_range; /// @todo - make const uint8_t if can
 
     auto en = this->cend();
     for(auto citer = this->cbegin(); citer != en; ++citer)
     {
-      if (citer->ace())
+      auto pCard = *citer;
+      if (pCard->ace())
       {
 	if (!ace_val_range.is_initialized())
 	{
-	  *ace_val_range = (citer->max_value() - citer->min_value());
+	  *ace_val_range = (pCard->max_value() - pCard->min_value());
 	}
 	++num_aces;
       }
 
-      val += citer->min_value();
+      val += pCard->min_value();
     }
 
     while (num_aces-- > 0 && val < 21)

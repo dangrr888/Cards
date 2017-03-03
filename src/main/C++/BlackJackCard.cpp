@@ -2,6 +2,7 @@
 #include "BlackJackDenomenations.h"
 
 #include <cstdint>
+#include <iostream>
 
 namespace blackjack
 {
@@ -74,6 +75,16 @@ namespace blackjack
       val = this->min_value();
     }
     return val;
+  }
+
+  std::ostream& operator<<(std::ostream& os, const BlackJackCard& bjcard)
+  {
+    os << "<BlackJackCard "
+       << "suit=\"" << bjcard.suit() << "\", "
+       << "denomenation=\"" << bjcard.denomenation() << "\""
+       << ">";
+
+    return os;
   }
 
 } // ! namespace blackjack

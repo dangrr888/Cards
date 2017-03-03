@@ -2,9 +2,11 @@
 #define GUARD_BLACKJACKCARD_H_
 
 #include "Card.h"
-#include <cstdint>
 #include "BlackJackSuits.h"
 #include "BlackJackDenomenations.h"
+
+#include <cstdint>
+#include <iostream>
 
 namespace blackjack
 {
@@ -41,6 +43,12 @@ namespace blackjack
     std::uint8_t max_value() const noexcept;
 
   }; // ! class BlackJackCard
+
+  /// @brief Inserter for BlackJackCard class.
+  /// @param os Output stream to which data is to be serialised.
+  /// @param card The BlackJackCard object that is to be serialised.
+  /// @return The updated version of the output stream specified.
+  std::ostream& operator<<(std::ostream& os, const BlackJackCard& bjcard);
 
 } // ! namespace blackjack
 

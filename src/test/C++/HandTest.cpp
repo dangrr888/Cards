@@ -7,6 +7,7 @@
 #include <array>
 #include <iostream>
 #include <sstream>
+#include <string>
 
 namespace testing
 {
@@ -123,9 +124,19 @@ namespace testing
   {
     hand h(hand::Id{0});
 
-    ASSERT_THROW( h.play_card()
-                , basic::error::get_card_with_invalid_index
-    );
+    try
+    {
+      h.play_card();
+      FAIL() << "Expected basic::error::get_card_with_invalid_index to be thrown.";
+    }
+    catch(basic::error::get_card_with_invalid_index& e)
+    {
+      ASSERT_EQ(std::string(e.what()), std::string("Attempt to play a card with invalid index: "));
+    }
+    catch(...)
+    {
+      FAIL() << "Expected basic::error::get_card_with_invalid_index to be thrown.";
+    }
   }
 
   TEST_F(HandTest, PlayRandomCardFromHand)

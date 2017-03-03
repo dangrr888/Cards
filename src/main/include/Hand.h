@@ -176,7 +176,10 @@ namespace basic
   {
     if (num_cards() < (idx + 1))
     {
-      BOOST_THROW_EXCEPTION(error::get_card_with_invalid_index{}); /// @todo - change error name to get_card...
+      /// @todo - wrap this up in a macro taking the idx as the argument.
+      error::get_card_with_invalid_index e;
+      e << basic::error::get_card_with_invalid_index_info(idx);
+      BOOST_THROW_EXCEPTION(e);
     }
 
     auto iter {m_cards.cbegin()};

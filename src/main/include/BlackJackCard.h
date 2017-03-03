@@ -15,6 +15,12 @@ namespace blackjack
   {
     // public etters
   public:
+    /// @brief 2-parameter constructor.
+    /// @param suit The BLACKJACKSUIT of this BlackJackCard.
+    /// @param denom The BLACKJACKDENOMENATION of this BlackJackCard.
+    BlackJackCard( blackjack::BLACKJACKSUIT suit
+                 , blackjack::BLACKJACKDENOMENATION denom
+                 );
 
     /// @brief Get whether this BlackJackCard is an ACE.
     /// @return Whether this BlackJackCard is an ACE.

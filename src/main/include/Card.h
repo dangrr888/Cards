@@ -8,7 +8,7 @@
 namespace basic
 {
 
-  /* A template class representing a 
+  /* A template class representing a
    * basic Card. The class is sufficiently
    * generic to be templatised for any
    * suit or denomenation provided by the
@@ -23,17 +23,17 @@ namespace basic
                  , "suit and denomenation of this Card must be enum's."
                    );
 
-    // public constructors    
+    // public constructors
   public:
-    
+
     /// @brief 2-parameter constructor.
     /// @param suit SUIT of this Card.
     /// @param denom DENOMENATION of this Card.
-    explicit Card(SUIT suit, DENOMENATION denom);
-    
+    Card(SUIT suit, DENOMENATION denom);
+
     /// @brief Copy constructor.
     Card(const Card&) = default;
-    
+
     /// @brief Copy assignment operator.
     /// @attention DELETED.
     Card& operator=(const Card&) = delete;
@@ -44,7 +44,7 @@ namespace basic
     /// @brief Move assignement operator.
     /// @attention DELETED.
     Card& operator=(Card&&) = delete;
-    
+
     /// @brief Destructor.
     virtual ~Card() = default;
 
@@ -54,7 +54,7 @@ namespace basic
     /// @brief Accessor for suit of this Card.
     /// @return suit of this Card.
     constexpr SUIT suit() const noexcept;
-    
+
     /// @brief Accessor for denomenation of this Card.
     /// @return denomenation of this Card.
     constexpr DENOMENATION denomenation() const noexcept;
@@ -64,7 +64,7 @@ namespace basic
 
     const SUIT m_suit;
     const DENOMENATION m_denomenation;
-    
+
   }; // !class Card
 
   /// @brief Inserter for Card class.
@@ -81,13 +81,13 @@ namespace basic
     : m_suit(suit)
     , m_denomenation(denom)
   {}
-  
+
   template<typename SUIT, typename DENOMENATION>
   constexpr SUIT Card<SUIT, DENOMENATION>::suit() const noexcept
   {
     return m_suit;
   }
-  
+
   template<typename SUIT, typename DENOMENATION>
   constexpr DENOMENATION Card<SUIT, DENOMENATION>::denomenation() const noexcept
   {
@@ -101,10 +101,10 @@ namespace basic
        << "suit=\"" << card.suit() << "\", "
        << "denomenation=\"" << card.denomenation() << "\""
        << ">";
-    
+
     return os;
   }
-  
+
 } // ! namespace basic
 
 #endif // !GUARD_CARD_H_

@@ -6,6 +6,18 @@
 namespace blackjack
 {
 
+  BlackJackHand::BlackJackHand(Id id)
+    : Hand(id)
+  {}
+
+  template<typename BlackJackCardIter>
+  BlackJackHand::BlackJackHand( BlackJackCardIter first_card
+                              , BlackJackCardIter last_card
+                              , Id id
+                              )
+    : Hand( first_card, last_card, id)
+  {}
+
   bool BlackJackHand::twenty_one() const noexcept
   {
     return this->value() == 21;

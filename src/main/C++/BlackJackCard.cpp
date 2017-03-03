@@ -5,6 +5,12 @@
 
 namespace blackjack
 {
+  BlackJackCard::BlackJackCard( blackjack::BLACKJACKSUIT suit
+                              , blackjack::BLACKJACKDENOMENATION denom
+                               )
+    : basic::Card<blackjack::BLACKJACKSUIT
+    , blackjack::BLACKJACKDENOMENATION>(suit, denom)
+  {}
 
   bool BlackJackCard::ace() const noexcept
   {

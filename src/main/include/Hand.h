@@ -77,6 +77,7 @@ namespace basic
 
     /// @brief Add a card to this Hand.
     /// @param card The Card to be added to this Hand.
+    ///  A nullptr will not be disregarded.
     void add_card(const Card* card);
 
     /// @brief Play a card from this Hand.
@@ -155,7 +156,10 @@ namespace basic
   template<typename Card>
   void Hand<Card>::add_card(const Card* card)
   {
-    m_cards.push_back(card);
+    if (card != nullptr)
+    {
+      m_cards.push_back(card);
+    }
   }
 
   template<typename Card>

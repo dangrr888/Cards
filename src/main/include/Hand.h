@@ -224,7 +224,7 @@ namespace basic
     os << "<Hand>\n";
     for (auto card : m_cards)
     {
-      os << "  " << *card << "\n";
+      os << "\t" << *card << "\n";
     }
     os << "</Hand>";
     os.flush();

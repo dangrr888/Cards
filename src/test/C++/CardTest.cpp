@@ -21,14 +21,15 @@ namespace testing
     using suit = suits::STANDARD;
     using denom = denomenations::STANDARD;
     using card = basic::Card<suit, denom>;
-    
+
   protected:
     static void SetUpTestCase();
     static void TearDownTestCase();
 
     void SetUp();
     void TearDown();
-  };
+
+  }; // ! CardTest
 
   void CardTest::SetUpTestCase()
   {

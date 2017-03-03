@@ -119,6 +119,30 @@ namespace testing
     ASSERT_EQ(h.num_cards(), 0);
   }
 
+  TEST_F(HandTest, PlayCardFromEmptyHandAndThrow)
+  {
+    hand h(hand::Id{0});
+
+    ASSERT_THROW( h.play_card()
+                , basic::error::play_card_with_invalid_index
+    );
+  }
+
+  TEST_F(HandTest, PlayRandomCardFromHand)
+  {
+    const card ace_hearts(suit::HEARTS, denom::ACE);
+    const card ace_diamonds(suit::DIAMONDS, denom::ACE);
+
+    std::array<const card*, 2> v{ &ace_hearts
+                                , &ace_diamonds
+                                };
+
+    hand h(v.cbegin(), v.cend(), hand::Id{0});
+
+    /// @note - currently we play the first card from the Hand.
+    ASSERT_EQ(h.play_card(), &ace_hearts);
+  }
+
   TEST_F(HandTest, PlayCardFromHand)
   {
     const card ace_hearts(suit::HEARTS, denom::ACE);
@@ -170,6 +194,30 @@ namespace testing
     ASSERT_THROW( h.play_card(1)
                 , basic::error::play_card_with_invalid_index
                 );
+  }
+
+  TEST_F(HandTest, PeekCardFromEmptyHandAndThrow)
+  {
+    hand h(hand::Id{0});
+
+    ASSERT_THROW( h.peek_card()
+                , basic::error::play_card_with_invalid_index
+    );
+  }
+
+  TEST_F(HandTest, PeekRandomCardFromHand)
+  {
+    const card ace_hearts(suit::HEARTS, denom::ACE);
+    const card ace_diamonds(suit::DIAMONDS, denom::ACE);
+
+    std::array<const card*, 2> v{ &ace_hearts
+                                , &ace_diamonds
+                                };
+
+    hand h(v.cbegin(), v.cend(), hand::Id{0});
+
+    /// @note - currently we play the first card from the Hand.
+    ASSERT_EQ(h.peek_card(), &ace_hearts);
   }
 
   TEST_F(HandTest, PeekCardFromHand)

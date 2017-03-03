@@ -85,10 +85,18 @@ namespace basic
     /// @return The Card that was played.
     const Card* play_card(typename std::list<const Card*>::size_type idx);
 
+    /// @brief Play a random card from this Hand.
+    /// @return The Card that was played.
+    const Card* play_card();
+
     /// @brief Peek at a card from this Hand.
     /// @param idx Index of the Card to peek. Indices start from 0.
     /// @return The Card that was peeked.
     const Card* peek_card(typename std::list<const Card*>::size_type idx) const;
+
+    /// @brief Peek at a random card of this Hand.
+    /// @return The Card that was peeked.
+    const Card* peek_card() const;
 
     /// @brief Get a const iterator to the first card of this Hand.
     /// @return A const iterator to the first Card of this Hand.
@@ -189,10 +197,24 @@ namespace basic
 
   template<typename Card>
   const Card*
+  Hand<Card>::play_card()
+  {
+    return this->play_card(0);
+  }
+
+  template<typename Card>
+  const Card*
   Hand<Card>::peek_card(typename std::list<const Card*>::size_type idx) const
   {
     auto iter = this->get_card(idx);
     return *iter;
+  }
+
+  template<typename Card>
+  const Card*
+  Hand<Card>::peek_card() const
+  {
+    return this->peek_card(0);
   }
 
   template<typename Card>

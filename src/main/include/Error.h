@@ -20,8 +20,8 @@ namespace basic
       const char* what() const noexcept { return "Attempt to deal card from empty Deck."; }
     };
 
-    // play_card_with_invalid_index
-    struct play_card_with_invalid_index : std::exception
+    // get_card_with_invalid_index
+    struct get_card_with_invalid_index : std::exception
     {
       const char* what() const noexcept { return "Attempt to play a card with invalid index."; }
     };

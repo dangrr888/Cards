@@ -176,7 +176,7 @@ namespace basic
   {
     if (num_cards() < (idx + 1))
     {
-      BOOST_THROW_EXCEPTION(error::play_card_with_invalid_index{}); /// @todo - change error name to get_card...
+      BOOST_THROW_EXCEPTION(error::get_card_with_invalid_index{}); /// @todo - change error name to get_card...
     }
 
     auto iter {m_cards.cbegin()};

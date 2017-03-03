@@ -124,7 +124,7 @@ namespace testing
     hand h(hand::Id{0});
 
     ASSERT_THROW( h.play_card()
-                , basic::error::play_card_with_invalid_index
+                , basic::error::get_card_with_invalid_index
     );
   }
 
@@ -192,7 +192,7 @@ namespace testing
     h.add_card(&ace_hearts);
 
     ASSERT_THROW( h.play_card(1)
-                , basic::error::play_card_with_invalid_index
+                , basic::error::get_card_with_invalid_index
                 );
   }
 
@@ -201,7 +201,7 @@ namespace testing
     hand h(hand::Id{0});
 
     ASSERT_THROW( h.peek_card()
-                , basic::error::play_card_with_invalid_index
+                , basic::error::get_card_with_invalid_index
     );
   }
 
@@ -252,7 +252,7 @@ namespace testing
     h.add_card(&ace_hearts);
 
     ASSERT_THROW( h.peek_card(1)
-                , basic::error::play_card_with_invalid_index
+                , basic::error::get_card_with_invalid_index
                 );
   }
 

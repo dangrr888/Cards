@@ -154,7 +154,16 @@ namespace basic
                   )
     : m_cards(first_card, last_card)
     , m_id(id)
-  {}
+  {
+    /*
+    /// @todo - enable this
+    stdtic_assert( std::is_same< std::remove_const<typename std::iterator_traits<CardIter>::value_type>::type::value
+                               , Card*
+                               >::type::value
+                 , "CardIter has a value type that is not compatible."
+                 );
+    */
+  }
 
   template<typename Card>
   Hand<Card>::Hand(Id id)

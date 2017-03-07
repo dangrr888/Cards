@@ -49,4 +49,9 @@ namespace testing
     bjhand h{bjhand::Id{0}};
   }
 
+  TEST_F(BlackJackHandTest, CreateBlackJackHandFromCards)
+  {
+
+  }
+
 } // ! namespace testing

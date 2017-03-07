@@ -3,6 +3,9 @@
 #include <iostream>
 #include <list>
 #include <sstream>
+#include <cstdint>
+#include <utility>
+#include <vector>
 
 // Custom
 #include "suits.h"
@@ -15,45 +18,16 @@
 namespace testing
 {
 
-  class BlackJackCardTest : public ::testing::Test
-  {
-  public:
-    using bjsuit = blackjack::BLACKJACKSUIT;
-    using bjdenom = blackjack::BLACKJACKDENOMENATION;
-    using bjcard = blackjack::BlackJackCard;
+  using bjsuit = blackjack::BLACKJACKSUIT;
+  using bjdenom = blackjack::BLACKJACKDENOMENATION;
+  using bjcard = blackjack::BlackJackCard;
 
-  protected:
-    static void SetUpTestCase();
-    static void TearDownTestCase();
-
-    void SetUp();
-    void TearDown();
-  };
-
-  void BlackJackCardTest::SetUpTestCase()
-  {
-  }
-
-  void BlackJackCardTest::TearDownTestCase()
-  {
-  }
-
-  void BlackJackCardTest::SetUp()
-  {
-    ::testing::Test::SetUp();
-  }
-
-  void BlackJackCardTest::TearDown()
-  {
-    ::testing::Test::TearDown();
-  }
-
-  TEST_F(BlackJackCardTest, CreateBlackJackCard)
+  TEST(BlackJackCardTest, CreateBlackJackCard)
   {
     const bjcard ace_of_spades(bjsuit::SPADES, bjdenom::ACE);
   }
 
-  TEST_F(BlackJackCardTest, SerializeOutput)
+  TEST(BlackJackCardTest, SerializeOutput)
   {
     const bjcard ace_of_spades(bjsuit::SPADES, bjdenom::ACE);
     std::stringstream ss;
@@ -63,7 +37,7 @@ namespace testing
                 );
   }
 
-  TEST_F(BlackJackCardTest, CopyCard)
+  TEST(BlackJackCardTest, CopyCard)
   {
     const bjcard ace_of_spades(bjsuit::SPADES, bjdenom::ACE);
     const bjcard ace_of_spades_copy(ace_of_spades);
@@ -76,16 +50,53 @@ namespace testing
     ASSERT_EQ(bjdenom::ACE, ace_of_spades_copy.denomenation());
   }
 
-  TEST_F(BlackJackCardTest, GetSuit)
+  TEST(BlackJackCardTest, GetSuit)
   {
     const bjcard ace_of_spades(bjsuit::HEARTS, bjdenom::ACE);
     ASSERT_EQ(bjsuit::HEARTS, ace_of_spades.suit());
   }
 
-  TEST_F(BlackJackCardTest, GetDenomenation)
+  TEST(BlackJackCardTest, GetDenomenation)
   {
     const bjcard ace_of_spades(bjsuit::HEARTS, bjdenom::ACE);
     ASSERT_EQ(bjdenom::ACE, ace_of_spades.denomenation());
   }
+
+  TEST(BlackJackCardTest, GetAce)
+  {
+    const bjcard ace_of_spades(bjsuit::HEARTS, bjdenom::ACE);
+    ASSERT_TRUE(ace_of_spades.ace());
+  }
+
+  TEST(BlackJackCardTest, GetNotAce)
+  {
+    const bjcard deuce_of_spades(bjsuit::HEARTS, bjdenom::TWO);
+    ASSERT_FALSE(deuce_of_spades.ace());
+  }
+
+  class BlackJackCardTestWithParameterizedDenomenations
+    : public ::testing::TestWithParam<std::pair<bjdenom, std::uint8_t>>
+  {
+  }; // !  fixture class BlackJackCardTestWithParameterizedDenomenations
+
+  using min_val_pair = std::pair<bjdenom, std::uint8_t>;
+  std::vector<min_val_pair> minvals
+  {
+    min_val_pair(bjdenom::ACE, 1),
+    min_val_pair(bjdenom::TWO, 2),
+    min_val_pair(bjdenom::THREE, 3),
+    min_val_pair(bjdenom::FOUR, 4)
+  };
+
+  TEST_P(BlackJackCardTestWithParameterizedDenomenations, GetMinValue)
+  {
+    const bjcard clubcard(bjsuit::CLUBS, GetParam().first);
+    ASSERT_EQ(clubcard.min_value(), GetParam().second);
+  }
+
+  INSTANTIATE_TEST_CASE_P( BlackJackCardTestWithParameterizedDenomenationsInstance
+                         , BlackJackCardTestWithParameterizedDenomenations
+                         , ::testing::ValuesIn(minvals)
+                         );
 
 } // ! namespace testing

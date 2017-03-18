@@ -1,10 +1,14 @@
 
-Representation of a generic deck of cards
-=========================================
+A library supporting a variety of conventional card games
+=========================================================
 
 <https://github.com/dangrr888/Cards>
 
 Overview
 --------
 
-Representation of a generic deck of cards.
+A generic card library supporting a variety of conventional card games.
+
+Explicit extensions include:
+
+* BlackJack

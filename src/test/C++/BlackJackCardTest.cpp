@@ -5,7 +5,7 @@
 #include <sstream>
 #include <cstdint>
 #include <utility>
-#include <vector>
+#include <deque>
 
 // Custom
 #include "suits.h"
@@ -74,29 +74,55 @@ namespace testing
     ASSERT_FALSE(deuce_of_spades.ace());
   }
 
-  class BlackJackCardTestWithParameterizedDenomenations
+  class BlackJackCardTestWithParameterizedValues
     : public ::testing::TestWithParam<std::pair<bjdenom, std::uint8_t>>
   {
-  }; // !  fixture class BlackJackCardTestWithParameterizedDenomenations
+  }; // !  fixture class BlackJackCardTestWithParameterizedValues
 
-  using min_val_pair = std::pair<bjdenom, std::uint8_t>;
-  std::vector<min_val_pair> minvals
+  using val_pair = std::pair<bjdenom, std::uint8_t>;
+  std::deque<val_pair> vals
   {
-    min_val_pair(bjdenom::ACE, 1),
-    min_val_pair(bjdenom::TWO, 2),
-    min_val_pair(bjdenom::THREE, 3),
-    min_val_pair(bjdenom::FOUR, 4)
+    val_pair(bjdenom::TWO,   2),
+    val_pair(bjdenom::THREE, 3),
+    val_pair(bjdenom::FOUR,  4),
+    val_pair(bjdenom::FIVE,  5),
+    val_pair(bjdenom::SIX,   6),
+    val_pair(bjdenom::SEVEN, 7),
+    val_pair(bjdenom::EIGHT, 8),
+    val_pair(bjdenom::NINE,  9),
+    val_pair(bjdenom::TEN,   10),
+    val_pair(bjdenom::JACK,  10),
+    val_pair(bjdenom::QUEEN, 10),
+    val_pair(bjdenom::KING,  10)
   };
 
-  TEST_P(BlackJackCardTestWithParameterizedDenomenations, GetMinValue)
+  INSTANTIATE_TEST_CASE_P( BlackJackCardTestWithParameterizedValues
+                         , BlackJackCardTestWithParameterizedValues
+                         , ::testing::ValuesIn(vals)
+                         );
+
+  TEST_P(BlackJackCardTestWithParameterizedValues, GetMinValue)
   {
     const bjcard clubcard(bjsuit::CLUBS, GetParam().first);
     ASSERT_EQ(clubcard.min_value(), GetParam().second);
   }
 
-  INSTANTIATE_TEST_CASE_P( BlackJackCardTestWithParameterizedDenomenationsInstance
-                         , BlackJackCardTestWithParameterizedDenomenations
-                         , ::testing::ValuesIn(minvals)
-                         );
+  TEST_P(BlackJackCardTestWithParameterizedValues, GetMaxValue)
+  {
+    const bjcard clubcard(bjsuit::CLUBS, GetParam().first);
+    ASSERT_EQ(clubcard.max_value(), GetParam().second);
+  }
+
+  TEST(BlackJackCardTest, GetAceMinValue)
+  {
+    const bjcard ace_of_clubs(bjsuit::CLUBS, bjdenom::ACE);
+    ASSERT_EQ(ace_of_clubs.min_value(), 1);
+  }
+
+  TEST(BlackJackCardTest, GetAceMaxValue)
+  {
+    const bjcard ace_of_clubs(bjsuit::CLUBS, bjdenom::ACE);
+    ASSERT_EQ(ace_of_clubs.max_value(), 11);
+  }
 
 } // ! namespace testing

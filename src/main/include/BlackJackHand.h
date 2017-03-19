@@ -23,10 +23,10 @@ namespace blackjack
     /// @note Client is responsible for providing the Hand Id and to check
     ///   for uniqueness.
     template<typename BlackJackCardIter>
-    explicit BlackJackHand( BlackJackCardIter first_card
-                          , BlackJackCardIter last_card
-                          , Id id
-                          );
+    BlackJackHand( BlackJackCardIter first_card
+                 , BlackJackCardIter last_card
+                 , Id id
+                 );
 
     /// @brief Copy constructor.
     /// @attention DELETED.
@@ -66,6 +66,22 @@ namespace blackjack
     uint8_t value() const;
 
   }; // ! class BlackJackHand
+
+  /// @brief Inserter for BlackJackHand class.
+  /// @param os Output stream to which data is to be serialised.
+  /// @param bjhand The BlackJackHand object that is to be serialised.
+  /// @return The updated version of the output stream specified.
+  std::ostream& operator<<(std::ostream& os, const BlackJackHand& bjhand);
+
+  //----------------- BlackJackHand member function defintiions --------------//
+
+  template<typename BlackJackCardIter>
+  BlackJackHand::BlackJackHand( BlackJackCardIter first_card
+                , BlackJackCardIter last_card
+                , Id id
+                )
+     : Hand(first_card, last_card, id)
+  {}
 
 } // ! namespace blackjack
 

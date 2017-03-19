@@ -10,14 +10,6 @@ namespace blackjack
     : Hand(id)
   {}
 
-  template<typename BlackJackCardIter>
-  BlackJackHand::BlackJackHand( BlackJackCardIter first_card
-                              , BlackJackCardIter last_card
-                              , Id id
-                              )
-    : Hand( first_card, last_card, id)
-  {}
-
   bool BlackJackHand::twenty_one() const noexcept
   {
     return this->value() == 21;
@@ -69,6 +61,18 @@ namespace blackjack
     }
 
     return val;
+  }
+
+  std::ostream& operator<<(std::ostream& os, const BlackJackHand& bjhand)
+  {
+    os << "<BlackJackHand>\n";
+    for (auto carditer = bjhand.cbegin(); carditer != bjhand.cend(); ++carditer)
+    {
+      os << "\t" << **carditer << "\n";
+    }
+    os << "</BlackJackHand>";
+
+    return os;
   }
 
 } // ! namespace blackjack

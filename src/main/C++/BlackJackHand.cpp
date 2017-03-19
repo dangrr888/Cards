@@ -39,7 +39,7 @@ namespace blackjack
       {
 	if (!ace_val_range.is_initialized())
 	{
-	  *ace_val_range = (pCard->max_value() - pCard->min_value());
+	  ace_val_range = (pCard->max_value() - pCard->min_value());
 	}
 	++num_aces;
       }

@@ -274,4 +274,110 @@ namespace testing
     ASSERT_EQ(h.id(), 42);
   }
 
+  TEST(BlackJackHandTest, HandIsNotTwentyOne)
+  {
+    const bjcard ace_hearts(bjsuit::HEARTS, bjdenom::ACE);
+    const bjcard two_hearts(bjsuit::HEARTS, bjdenom::TWO);
+
+    std::array<const bjcard*, 2> v{ &ace_hearts
+                                  , &two_hearts
+                                  };
+
+    bjhand h(v.cbegin(), v.cend(), bjhand::Id{8989});
+    ASSERT_FALSE(h.twenty_one());
+  }
+
+  TEST(BlackJackHandTest, HandIsTwentyOne)
+  {
+    const bjcard ten_hearts(bjsuit::HEARTS, bjdenom::TEN);
+    const bjcard ace_hearts(bjsuit::HEARTS, bjdenom::ACE);
+
+    std::array<const bjcard*, 2> v{ &ace_hearts
+                                  , &ten_hearts
+                                  };
+
+    bjhand h(v.cbegin(), v.cend(), bjhand::Id{8989});
+    ASSERT_TRUE(h.twenty_one());
+  }
+
+  TEST(BlackJackHandTest, IsBusted1)
+  {
+    const bjcard ten_hearts(bjsuit::HEARTS, bjdenom::TEN);
+    const bjcard ace_hearts(bjsuit::HEARTS, bjdenom::ACE);
+
+    std::array<const bjcard*, 2> v{ &ace_hearts
+                                  , &ten_hearts
+                                  };
+
+    bjhand h(v.cbegin(), v.cend(), bjhand::Id{8989});
+    ASSERT_FALSE(h.busted());
+    ASSERT_EQ(h.value(), 21);
+  }
+
+  TEST(BlackJackHandTest, IsBusted2)
+  {
+    const bjcard ten_hearts(bjsuit::HEARTS, bjdenom::TEN);
+    const bjcard ace_hearts(bjsuit::HEARTS, bjdenom::ACE);
+    const bjcard ace_diamonds(bjsuit::DIAMONDS, bjdenom::ACE);
+
+    std::array<const bjcard*, 3> v{ &ace_hearts
+                                  , &ten_hearts
+                                  , &ace_diamonds
+                                  };
+
+    bjhand h(v.cbegin(), v.cend(), bjhand::Id{8989});
+    ASSERT_FALSE(h.busted());
+    ASSERT_EQ(h.value(), 12);
+  }
+
+  TEST(BlackJackHandTest, IsBusted3)
+  {
+    const bjcard ace_hearts(bjsuit::HEARTS, bjdenom::ACE);
+
+    std::vector<const bjcard*> v{ 21, &ace_hearts};
+
+    bjhand h(v.cbegin(), v.cend(), bjhand::Id{8989});
+    ASSERT_FALSE(h.busted());
+    ASSERT_EQ(h.value(), 21);
+  }
+
+  TEST(BlackJackHandTest, IsBusted4)
+  {
+    const bjcard ace_hearts(bjsuit::HEARTS, bjdenom::ACE);
+
+    std::vector<const bjcard*> v{ 22, &ace_hearts};
+
+    bjhand h(v.cbegin(), v.cend(), bjhand::Id{8989});
+    ASSERT_TRUE(h.busted());
+    ASSERT_EQ(h.value(), 22);
+  }
+
+  TEST(BlackJackHandTest, IsBlackJack1)
+  {
+    const bjcard ten_hearts(bjsuit::HEARTS, bjdenom::TEN);
+    const bjcard ace_hearts(bjsuit::HEARTS, bjdenom::ACE);
+
+    std::array<const bjcard*, 2> v{ &ace_hearts
+                                  , &ten_hearts
+                                  };
+
+    bjhand h(v.cbegin(), v.cend(), bjhand::Id{8989});
+    ASSERT_TRUE(h.blackjack());
+  }
+
+  TEST(BlackJackHandTest, IsBlackJack2)
+  {
+    const bjcard ten_hearts(bjsuit::HEARTS, bjdenom::TEN);
+    const bjcard six_hearts(bjsuit::HEARTS, bjdenom::SIX);
+    const bjcard five_hearts(bjsuit::HEARTS, bjdenom::FIVE);
+
+    std::array<const bjcard*, 3> v{ &ten_hearts
+                                  , &six_hearts
+                                  , &five_hearts
+                                  };
+
+    bjhand h(v.cbegin(), v.cend(), bjhand::Id{8989});
+    ASSERT_FALSE(h.blackjack());
+  }
+
 } // ! namespace testing

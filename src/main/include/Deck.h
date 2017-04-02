@@ -33,15 +33,15 @@ namespace basic
   template<typename Card>
   class Deck
   {
-    // public aliases    
+    // public aliases
   public:
 
     // Id
     BOOST_STRONG_TYPEDEF(int32_t, Id);
-    
+
     // public structors
   public:
-    
+
     /// @brief 5-parameter constructor.
     /// @param first_suit Iterator to first suit of this Deck.
     /// @param last_suit Iterator to last suit of this Deck.
@@ -69,7 +69,7 @@ namespace basic
 		 , CardIter last_card
 		 , Id id
 		 );
-    
+
     /// @brief Copy constructor.
     /// @attention DELETED.
     Deck(const Deck&) = delete;
@@ -81,14 +81,14 @@ namespace basic
     /// @brief Move constructor.
     /// @attention DELETED.
     Deck(Deck&&) = delete;
-    
+
     /// @brief Move assignment operator.
     /// @attention DELETED.
     Deck& operator=(Deck&&) = delete;
-    
+
     /// @brief Destructor.
     ~Deck() = default;
-    
+
     /// public member functions
   public:
 
@@ -102,11 +102,11 @@ namespace basic
     /// @pre The number of undealt cards must be greater than zero
     ///  otherwise this function will throw an exception.
     const Card* deal_card();
-    
+
     /// @brief Get number of Cards in this Deck.
     /// @return The number of Cards in this Deck.
     typename std::list<const Card>::size_type num_cards() const noexcept;
-    
+
     /// @brief Get the id of this Deck.
     /// @return the id of this Deck.
     Id id() const noexcept;
@@ -132,7 +132,7 @@ namespace basic
     Id m_id;
 
   }; // ! class Deck
-  
+
   /// @brief Inserter for Deck class.
   /// @param os Output stream to which data is to be serialised.
   /// @param deck The Deck object that is to be serialised.
@@ -186,7 +186,7 @@ namespace basic
 
     std::random_shuffle(m_undealt_cards.begin(), m_undealt_cards.end());
   }
-  
+
   template<typename Card>
   void Deck<Card>::add_card(Card&& card)
   {
@@ -204,26 +204,26 @@ namespace basic
     {
       BOOST_THROW_EXCEPTION(error::deal_from_empty_deck{});
     }
-    
-    const Card* pCard = m_undealt_cards.back(); 
+
+    const Card* pCard = m_undealt_cards.back();
     m_dealt_cards.push_back(pCard);
     m_undealt_cards.pop_back();
-    
+
     return pCard;
   }
-  
+
   template<typename Card>
   typename std::list<const Card>::size_type Deck<Card>::num_cards() const noexcept
   {
     return m_cards.size();
   }
-   
+
   template<typename Card>
   typename Deck<Card>::Id Deck<Card>::id() const noexcept
   {
     return m_id;
   }
- 
+
   template<typename Card>
   typename std::deque<const Card>::size_type Deck<Card>::num_undealt_cards() const noexcept
   {
@@ -242,19 +242,19 @@ namespace basic
     os << "<Deck>\n";
     for (auto pcard : m_undealt_cards)
     {
-      os << "  " << *pcard << "\n";
+      os << "\t" << *pcard << "\n";
     }
     os << "</Deck>";
     os.flush();
   }
-  
+
   template<typename Card>
   std::ostream& operator<<(std::ostream& os, const Deck<Card>& deck)
-  {
+    {
     deck.print(os);
     return os;
   }
- 
+
 } // ! namespace basic
 
 #endif // ! GUARD_DECK_H_

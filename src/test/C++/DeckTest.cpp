@@ -5,6 +5,7 @@
 #include "Hand.h"
 #include "Deck.h"
 #include <array>
+#include <iostream>
 
 namespace testing
 {
@@ -12,38 +13,14 @@ namespace testing
   class DeckTest : public ::testing::Test
   {
   public:
+    /// @todo - put these in a header file and lose the test fixture.
     using suit = suits::STANDARD;
     using denom = denomenations::STANDARD;
     using card = basic::Card<suit, denom>;
     using hand = basic::Hand<card>;
     using deck = basic::Deck<card>;
 
-  protected:
-    static void SetUpTestCase();
-    static void TearDownTestCase();
-
-    void SetUp();
-    void TearDown();
-
   }; // ! class DeckTest
-
-  void DeckTest::SetUpTestCase()
-  {
-  }
-
-  void DeckTest::TearDownTestCase()
-  {
-  }
-
-  void DeckTest::SetUp()
-  {
-    ::testing::Test::SetUp();
-  }
-
-  void DeckTest::TearDown()
-  {
-    ::testing::Test::TearDown();
-  }
 
   TEST_F(DeckTest, CreateDeckFromSuitsDenomsAndId)
   {
@@ -68,6 +45,35 @@ namespace testing
     deck d( cards.cbegin()
           , cards.cend()
           , deck::Id{42}
+      );
+  }
+
+  TEST_F(DeckTest, AddCard)
+  {
+    const std::array<card, 4> cards { card{suit::SPADES, denom::ACE}
+                                    , card{suit::SPADES, denom::JACK}
+                                    , card{suit::DIAMONDS, denom::NINE}
+                                    , card{suit::CLUBS, denom::FOUR}
+                                    };
+
+    deck d( cards.cbegin()
+          , cards.cend()
+          , deck::Id{42}
+      );
+
+    d.add_card( card {suit::HEARTS, denom::QUEEN} );
+
+    std::stringstream ss;
+    ss << d;
+
+    ASSERT_STREQ( ss.str().c_str()
+                , "<Deck>\n"
+                  "\t<Card suit=\"HEARTS\", denomenation=\"QUEEN\">\n"
+                  "\t<Card suit=\"CLUBS\", denomenation=\"FOUR\">\n"
+                  "\t<Card suit=\"DIAMONDS\", denomenation=\"NINE\">\n"
+                  "\t<Card suit=\"SPADES\", denomenation=\"JACK\">\n"
+                  "\t<Card suit=\"SPADES\", denomenation=\"ACE\">\n"
+                  "</Deck>"
       );
   }
 

@@ -48,6 +48,55 @@ namespace testing
       );
   }
 
+  TEST_F(DeckTest, NumCards)
+  {
+    const std::array<card, 4> cards { card{suit::SPADES, denom::ACE}
+                                    , card{suit::SPADES, denom::JACK}
+                                    , card{suit::DIAMONDS, denom::NINE}
+                                    , card{suit::CLUBS, denom::FOUR}
+                                    };
+
+    deck d( cards.cbegin()
+          , cards.cend()
+          , deck::Id{42}
+      );
+
+    ASSERT_EQ(d.num_cards(), 4);
+  }
+
+  TEST_F(DeckTest, NumUndealtCards)
+  {
+    const std::array<card, 4> cards { card{suit::SPADES, denom::ACE}
+                                    , card{suit::SPADES, denom::JACK}
+                                    , card{suit::DIAMONDS, denom::NINE}
+                                    , card{suit::CLUBS, denom::FOUR}
+                                    };
+
+    deck d( cards.cbegin()
+          , cards.cend()
+          , deck::Id{42}
+      );
+
+    ASSERT_EQ(d.num_undealt_cards(), 4);
+  }
+
+  TEST_F(DeckTest, NumDealtCards)
+  {
+    const std::array<card, 4> cards { card{suit::SPADES, denom::ACE}
+                                    , card{suit::SPADES, denom::JACK}
+                                    , card{suit::DIAMONDS, denom::NINE}
+                                    , card{suit::CLUBS, denom::FOUR}
+                                    };
+
+    deck d( cards.cbegin()
+          , cards.cend()
+          , deck::Id{42}
+      );
+
+    ASSERT_EQ(d.num_dealt_cards(), 0);
+  }
+
+
   TEST_F(DeckTest, AddCard)
   {
     const std::array<card, 4> cards { card{suit::SPADES, denom::ACE}
@@ -101,5 +150,23 @@ namespace testing
     ASSERT_EQ(d.num_undealt_cards(), 4);
     ASSERT_EQ(d.num_dealt_cards(), 1);
   }
+
+  TEST_F(DeckTest, GetId)
+  {
+    const std::array<card, 4> cards { card{suit::SPADES, denom::ACE}
+                                    , card{suit::SPADES, denom::JACK}
+                                    , card{suit::DIAMONDS, denom::NINE}
+                                    , card{suit::CLUBS, denom::FOUR}
+                                    };
+
+    deck::Id id{42};
+    deck d( cards.cbegin()
+          , cards.cend()
+          , id
+      );
+
+    ASSERT_EQ(d.id(), id);
+  }
+
 
 } // ! namespace testing

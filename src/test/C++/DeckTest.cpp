@@ -61,20 +61,45 @@ namespace testing
           , deck::Id{42}
       );
 
+    ASSERT_EQ(d.num_cards(), 4);
+    ASSERT_EQ(d.num_dealt_cards(), 0);
+    ASSERT_EQ(d.num_undealt_cards(), 4);
+
     d.add_card( card {suit::HEARTS, denom::QUEEN} );
 
-    std::stringstream ss;
-    ss << d;
+    ASSERT_EQ(d.num_cards(), 5);
+    ASSERT_EQ(d.num_dealt_cards(), 0);
+    ASSERT_EQ(d.num_undealt_cards(), 5);
+  }
 
-    ASSERT_STREQ( ss.str().c_str()
-                , "<Deck>\n"
-                  "\t<Card suit=\"HEARTS\", denomenation=\"QUEEN\">\n"
-                  "\t<Card suit=\"CLUBS\", denomenation=\"FOUR\">\n"
-                  "\t<Card suit=\"DIAMONDS\", denomenation=\"NINE\">\n"
-                  "\t<Card suit=\"SPADES\", denomenation=\"JACK\">\n"
-                  "\t<Card suit=\"SPADES\", denomenation=\"ACE\">\n"
-                  "</Deck>"
+  TEST_F(DeckTest, DealCard)
+  {
+    const std::array<card, 4> cards { card{suit::SPADES, denom::ACE}
+                                    , card{suit::SPADES, denom::JACK}
+                                    , card{suit::DIAMONDS, denom::NINE}
+                                    , card{suit::CLUBS, denom::FOUR}
+                                    };
+
+    deck d( cards.cbegin()
+          , cards.cend()
+          , deck::Id{42}
       );
+
+    ASSERT_EQ(d.num_cards(), 4);
+    ASSERT_EQ(d.num_dealt_cards(), 0);
+    ASSERT_EQ(d.num_undealt_cards(), 4);
+
+    d.add_card( card {suit::HEARTS, denom::QUEEN} );
+
+    ASSERT_EQ(d.num_cards(), 5);
+    ASSERT_EQ(d.num_dealt_cards(), 0);
+    ASSERT_EQ(d.num_undealt_cards(), 5);
+
+    ASSERT_TRUE(d.deal_card());
+
+    ASSERT_EQ(d.num_cards(), 5);
+    ASSERT_EQ(d.num_undealt_cards(), 4);
+    ASSERT_EQ(d.num_dealt_cards(), 1);
   }
 
 } // ! namespace testing

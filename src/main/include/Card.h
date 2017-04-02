@@ -36,14 +36,14 @@ namespace basic
 
     /// @brief Copy assignment operator.
     /// @attention DELETED.
-    Card& operator=(const Card&) = delete;
+    Card& operator=(const Card&) = default;
 
     /// @brief Move Constructor.
     Card(Card&&) = default;
 
     /// @brief Move assignement operator.
     /// @attention DELETED.
-    Card& operator=(Card&&) = delete;
+    Card& operator=(Card&&) = default;
 
     /// @brief Destructor.
     virtual ~Card() = default;

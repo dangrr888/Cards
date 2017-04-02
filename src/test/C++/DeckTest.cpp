@@ -4,6 +4,7 @@
 #include "denomenations.h"
 #include "Hand.h"
 #include "Deck.h"
+#include <array>
 
 namespace testing
 {
@@ -46,8 +47,8 @@ namespace testing
 
   TEST_F(DeckTest, CreateDeckFromSuitsDenomsAndId)
   {
-    const std::deque<suit> suits {suit::SPADES, suit::HEARTS};
-    const std::deque<denom> denom {denom::ACE, denom::FIVE, denom::KING};
+    const std::array<suit, 2> suits {suit::SPADES, suit::HEARTS};
+    const std::array<denom, 3> denom {denom::ACE, denom::FIVE, denom::KING};
     deck d( suits.cbegin()
           , suits.cend()
           , denom.cbegin()
@@ -56,5 +57,18 @@ namespace testing
       );
   }
 
+  TEST_F(DeckTest, CreateDeckFromCards)
+  {
+    const std::array<card, 4> cards { card{suit::SPADES, denom::ACE}
+                                    , card{suit::SPADES, denom::JACK}
+                                    , card{suit::DIAMONDS, denom::NINE}
+                                    , card{suit::CLUBS, denom::FOUR}
+                                    };
+
+    deck d( cards.cbegin()
+          , cards.cend()
+          , deck::Id{42}
+      );
+  }
 
 } // ! namespace testing

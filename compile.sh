@@ -60,6 +60,6 @@ g++ -o ${UTEST_BINARY_DIR}/BlackJack ${BLACKJACK_UTEST_IMPL_DIR}/*.cpp ${CARDS_I
 # Generate integration test binaries #
 cd ${ROOT_DIR}
 g++ -o ${SPIKETEST_BINARY_DIR}/Cards ${CARDS_SPIKETEST_IMPL_DIR}/main.cpp ${CARDS_IMPL_DIR}/*.o --std=c++14 -I${BOOST_HEADERS_DIR} -I${CARDS_HEADERS_DIR} -lgtest -lgmock
-g++ -o ${SPIKETEST_BINARY_DIR}/BlackJack ${BLACKJACK_SPIKETEST_IMPL_DIR}/main.cpp ${CARDS_IMPL_DIR}/*.o ${BLACKJACK_IMPL_DIR}/*.o --std=c++14 -I${BOOST_HEADERS_DIR} -I${CARDS_HEADERS_DIR} -I${BLACKJACK_HEADERS_DIR} -lgtest -lgmock
+#g++ -o ${SPIKETEST_BINARY_DIR}/BlackJack ${BLACKJACK_SPIKETEST_IMPL_DIR}/main.cpp ${CARDS_IMPL_DIR}/*.o ${BLACKJACK_IMPL_DIR}/*.o --std=c++14 -I${BOOST_HEADERS_DIR} -I${CARDS_HEADERS_DIR} -I${BLACKJACK_HEADERS_DIR} -lgtest -lgmock
 
 exit $?

@@ -2,4 +2,6 @@
 ./main
 doc/*
 bin/*
+*.o
+build/*
 .DS_Store
